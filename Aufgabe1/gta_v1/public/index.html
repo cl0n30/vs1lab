@@ -38,10 +38,10 @@
                     <input id="longitude" type="textarea" name="longitude" readonly>
 
                     <label id="name">Name:</label>
-                    <input id="name" type="textarea" name="name" maxlength=10 placeholder="e.g. Central Berlin" required>
+                    <input id="name" type="textarea" name="name" maxlength=10 pattern="([A-Z,a-z])+f" placeholder="e.g. Central Berlin" required>
 
                     <label id="hashtag">Hashtag:</label>
-                    <input id=hashtag type="textarea" name="hashtag" maxlength=11 pattern="(#).*" placeholder="e.g. #ber">
+                    <input id=hashtag type="textarea" name="hashtag" maxlength=11 pattern="(#)([A-Z,a-z])*" placeholder="e.g. #ber">
 
                     <input id="addTag" type="submit" value="Add Tag">
                 </fieldset>    
@@ -63,8 +63,8 @@
                     <label id="searchterm">Search term or keywords:</label>
                     <input id="searchterm" type="textarea" name="searchterm" placeholder="e.g. Berlin">
 
-                    <input type="hidden" id="discoveryLongitude" name="discoveryLongitude">
-                    <input type="hidden" id="discoveryLatitude" name="discoveryLatitude">
+                    <input type="hidden" id="discoveryLongitude" name="longitude">
+                    <input type="hidden" id="discoveryLatitude" name="latitude">
 
                     <input id="search" type="submit" value="Search">
                 </fieldset>
