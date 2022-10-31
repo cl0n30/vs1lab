@@ -131,6 +131,9 @@ input {
 
 /* ... your code here ... */
 
+.subheaders {
+  margin-bottom: 20px;
+}
 
 /* ### TODO ### Styles for Tagging component */
 
