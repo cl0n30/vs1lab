@@ -136,7 +136,16 @@ a {
 
 .footer {
   background-color: var(--background-color);
+  max-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }
+
+#footer__info {
+  margin-left: 25px;
+}
+
 
 /* ### TODO ### Media Queries */
 
