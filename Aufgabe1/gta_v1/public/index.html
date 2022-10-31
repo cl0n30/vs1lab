@@ -31,11 +31,11 @@
                 <fieldset>
                     <legend>Add a new GeoTag</legend>
 
-                    <label for="latitude">Latitude:</label>
-                    <input id="latitude" type="textarea" name="tagLatitude" readonly>
+                    <label for="taglatitude">Latitude:</label>
+                    <input id="tagLatitude" type="textarea" name="tagLatitude" readonly>
 
-                    <label for="longitude">Longitude:</label>
-                    <input id="longitude" type="textarea" name="tagLongitude" readonly>
+                    <label for="tagLongitude">Longitude:</label>
+                    <input id="tagLongitude" type="textarea" name="tagLongitude" readonly>
 
                     <label for="name">Name:</label>
                     <input id="name" type="textarea" name="name" maxlength=10 pattern="([A-Z,a-z])+" placeholder="e.g. Central Berlin" required>
@@ -63,8 +63,8 @@
                     <label for="searchterm">Search term or keywords:</label>
                     <input id="searchterm" type="textarea" name="searchterm" placeholder="e.g. Berlin">
 
-                    <input type="hidden" id="discoveryLongitude" name="longitude">
-                    <input type="hidden" id="discoveryLatitude" name="latitude">
+                    <input type="hidden" id="discoveryLongitude" name="discoveryLongitude">
+                    <input type="hidden" id="discoveryLatitude" name="discoveryLatitude">
 
                     <input id="search" type="submit" value="Search">
                 </fieldset>
