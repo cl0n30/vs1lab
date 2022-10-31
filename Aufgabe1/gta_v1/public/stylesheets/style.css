@@ -48,6 +48,10 @@ input {
   min-width: 200px;
 }
 
+legend {
+  margin-left: 10px;
+}
+
 /* ### TODO ### Styles for other HTML elements */
 
 /* ... your code here ... */
