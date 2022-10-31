@@ -44,6 +44,10 @@ a {
   color: var(--link-color);
 }
 
+input {
+  min-width: 200px;
+}
+
 /* ### TODO ### Styles for other HTML elements */
 
 /* ... your code here ... */
