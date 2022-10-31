@@ -135,8 +135,16 @@ a {
   margin: 10px;
 }
 
+.main__tagging {
+  margin: 25px;
+}
+
 
 /* ### TODO ### Styles for Discovery component */
+
+.main__discovery {
+  margin: 25px;
+}
 
 /* ... your code here ... */
 
