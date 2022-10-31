@@ -130,7 +130,10 @@ a {
 
 /* ### TODO ### Styles for Tagging component */
 
-/* ... your code here ... */
+.block_form_field {
+  display: block;
+  margin: 10px;
+}
 
 
 /* ### TODO ### Styles for Discovery component */

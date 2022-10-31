@@ -31,19 +31,19 @@
                 <fieldset>
                     <legend>Add a new GeoTag</legend>
 
-                    <label id="latitude">Latitude:</label>
-                    <input id="latitude_input" type="textarea" name="tagLatitude" readonly>
+                    <label id="latitude" class="block_form_field">Latitude:</label>
+                    <input id="latitude_input" class="block_form_field" type="textarea" name="tagLatitude" readonly>
 
-                    <label id="longitude">Longitude:</label>
-                    <input id="longitude_input" type="textarea" name="tagLongitude" readonly>
+                    <label id="longitude" class="block_form_field">Longitude:</label>
+                    <input id="longitude_input" class="block_form_field" type="textarea" name="tagLongitude" readonly>
 
-                    <label id="name">Name:</label>
-                    <input id="name_input" type="textarea" name="name" maxlength=10 pattern="([A-Z,a-z])+" placeholder="e.g. Central Berlin" required>
+                    <label id="name" class="block_form_field">Name:</label>
+                    <input id="name_input" class="block_form_field" type="textarea" name="name" maxlength=10 pattern="([A-Z,a-z])+" placeholder="e.g. Central Berlin" required>
 
-                    <label id="hashtag">Hashtag:</label>
-                    <input id="hashtag_input" type="textarea" name="hashtag" maxlength=11 pattern="(#)([A-Z,a-z])*" placeholder="e.g. #ber">
+                    <label id="hashtag" class="block_form_field">Hashtag:</label>
+                    <input id="hashtag_input" class="block_form_field" type="textarea" name="hashtag" maxlength=11 pattern="(#)([A-Z,a-z])*" placeholder="e.g. #ber">
 
-                    <input id="addTag" type="submit" value="Add Tag">
+                    <input id="addTag" class="block_form_field" type="submit" value="Add Tag">
                 </fieldset>    
 
             </form>
@@ -60,13 +60,13 @@
                 <fieldset>
                     <legend>Search</legend>
 
-                    <label id="searchterm">Search term or keywords:</label>
-                    <input id="searchterm_input" type="textarea" name="searchterm" placeholder="e.g. Berlin">
+                    <label id="searchterm" class="block_form_field">Search term or keywords:</label>
+                    <input id="searchterm_input"  class="block_form_field"type="textarea" name="searchterm" placeholder="e.g. Berlin">
 
                     <input type="hidden" id="discoveryLongitude" name="longitude">
                     <input type="hidden" id="discoveryLatitude" name="latitude">
 
-                    <input id="search" type="submit" value="Search">
+                    <input id="search" class="block_form_field" type="submit" value="Search">
                 </fieldset>
                 
             </form>
