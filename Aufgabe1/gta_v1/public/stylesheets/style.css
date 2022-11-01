@@ -109,29 +109,147 @@ a {
 
 /* ### TODO ### Styles for Header Component */
 
-/* ... your code here ... */
+.header {
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 5ex;
+  padding-bottom: 5ex;
+}
+
+h1.header__title {
+  font-size : 8ex;
+}
+
+img.header__image {
+  height: 8ex;
+}
 
 
 /* ### TODO ### Styles for Main Component */
 
-/* ... your code here ... */
-
+.main {
+  display: flex;
+  /*justify-content: stretch;*/
+}
 
 /* ### TODO ### Styles for Tagging component */
 
-/* ... your code here ... */
+.main h2 {
+  margin-top: 5ex;
+  margin-left: 2ex;
+}
 
+#tag-form{
+  margin: 3ex;
+ }
+
+#tag-form label {
+  color: var(--gray-color);
+  padding: 2ex;
+}
+
+#tag-form input {
+  display: flex;
+  flex-direction: column;
+  height: 5ex;
+  padding: 2ex;
+  margin: 2ex;
+}
+
+#addTag {
+  text-align: center;
+}
 
 /* ### TODO ### Styles for Discovery component */
 
-/* ... your code here ... */
+div.discovery__wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+}
 
+div.discovery__taglist li {
+  display: flex;
+  flex-direction: column;
+  color: var(--link-color);
+  background-color: var(--background-color);
+  border: solid;
+  border-color: var(--border-color);
+  padding: 2ex;
+  margin: 3ex;
+}
+
+div.discovery__map {
+  display: flex;
+  flex-direction:  column;
+  margin: 3ex;
+}
+
+form.discovery__search {
+  margin: 3ex;
+}
+
+form.discovery__search input {
+  display: flex;
+  flex-direction: column;
+  height: 5ex;
+  padding: 2ex;
+  margin: 2ex;
+}
+
+form.discovery__search label {
+  color: var(--gray-color);
+  padding: 2ex;
+}
 
 /* ### TODO ### Styles for Footer Component */
 
-/* ... your code here ... */
+footer {
+  background-color: var(--background-color);
+  display: flex;
+  align-items: flex-start;
+  padding-top: 3ex;
+  padding-bottom: 3ex;
+}
 
 
 /* ### TODO ### Media Queries */
 
-/* ... your code here ... */
+@media only screen and (max-width: 850px) {
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  div.discovery__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    padding-top: 5ex;
+    padding-bottom: 5ex;
+  }
+
+  h1.header__title {
+    font-size : 5ex;
+  }
+  
+  img.header__image {
+    height: 5ex;
+  }
+
+  .tagging {
+    width: 100%;
+  }
+
+  .discovery {
+    width: 100%;
+  }
+  
+}
