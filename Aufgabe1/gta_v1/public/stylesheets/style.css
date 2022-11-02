@@ -266,7 +266,7 @@ footer {
   }
 
   .discovery input {
-    width:;
+    width: calc(83.33% - 1rem);
   }
   
 }
