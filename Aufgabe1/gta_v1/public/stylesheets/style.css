@@ -179,6 +179,11 @@ legend {
   color: var(--link-color);
 }
 
+#mapView {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+}
 
 /* ### TODO ### Styles for Footer Component */
 
