@@ -131,7 +131,7 @@ img.header__image {
 
 .main {
   display: flex;
-  /*justify-content: stretch;*/
+  justify-content:space-between;
 }
 
 /* ### TODO ### Styles for Tagging component */
@@ -145,6 +145,10 @@ img.header__image {
   margin: 3ex;
  }
 
+ #tagSet{
+  padding-block-start: 3ex;
+}
+
 #tag-form label {
   color: var(--gray-color);
   padding: 2ex;
@@ -154,12 +158,13 @@ img.header__image {
   display: flex;
   flex-direction: column;
   height: 5ex;
+  /*width: 25ex;*/
   padding: 2ex;
   margin: 2ex;
 }
 
 #addTag {
-  text-align: center;
+  line-height: 1ex;
 }
 
 /* ### TODO ### Styles for Discovery component */
@@ -168,6 +173,10 @@ div.discovery__wrapper {
   display: flex;
   flex-direction: row;
   justify-content:space-between;
+}
+
+#discoverySet{
+  padding-block-start: 3ex;
 }
 
 div.discovery__taglist li {
@@ -202,6 +211,10 @@ form.discovery__search input {
 form.discovery__search label {
   color: var(--gray-color);
   padding: 2ex;
+}
+
+#search {
+  line-height: 1ex;
 }
 
 /* ### TODO ### Styles for Footer Component */
@@ -250,6 +263,10 @@ footer {
 
   .discovery {
     width: 100%;
+  }
+
+  .discovery input {
+    width:;
   }
   
 }
