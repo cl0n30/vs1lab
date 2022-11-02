@@ -44,10 +44,6 @@ a {
   color: var(--link-color);
 }
 
-input {
-  min-width: 200px;
-}
-
 legend {
   margin-left: 10px;
 }
@@ -144,6 +140,12 @@ legend {
 
 /* ### TODO ### Styles for Tagging component */
 
+
+#tag_inputs input {
+  min-width: 200px;
+  width: 80%;
+}
+
 .block_form_field {
   display: block;
   margin: 10px;
@@ -166,6 +168,9 @@ legend {
   flex-direction: row;
 }
 
+#search_inputs input {
+  min-width: 200px;
+  width: 80%;
 }
 
 .discovery__taglist {
