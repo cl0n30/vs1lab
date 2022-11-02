@@ -31,16 +31,16 @@
                 <fieldset id="tag_inputs">
                     <legend>Add a new GeoTag</legend>
 
-                    <label id="latitude" class="block_form_field">Latitude:</label>
+                    <label id="latitude" class="block_form_field" for="latitude_input">Latitude:</label>
                     <input id="latitude_input" class="block_form_field" type="textarea" name="tagLatitude" readonly>
 
-                    <label id="longitude" class="block_form_field">Longitude:</label>
+                    <label id="longitude" class="block_form_field" for="longitude_input">Longitude:</label>
                     <input id="longitude_input" class="block_form_field" type="textarea" name="tagLongitude" readonly>
 
-                    <label id="name" class="block_form_field">Name:</label>
+                    <label id="name" class="block_form_field" for="name_input">Name:</label>
                     <input id="name_input" class="block_form_field" type="textarea" name="name" maxlength=10 pattern="([A-Z,a-z])+" placeholder="e.g. Central Berlin" required>
 
-                    <label id="hashtag" class="block_form_field">Hashtag:</label>
+                    <label id="hashtag" class="block_form_field" for="hashtag_input">Hashtag:</label>
                     <input id="hashtag_input" class="block_form_field" type="textarea" name="hashtag" maxlength=11 pattern="(#)([A-Z,a-z])*" placeholder="e.g. #ber">
 
                     <input id="addTag" class="block_form_field" type="submit" value="Add Tag">
@@ -60,7 +60,7 @@
                 <fieldset id="search_inputs">
                     <legend>Search</legend>
 
-                    <label id="searchterm" class="block_form_field">Search term or keywords:</label>
+                    <label id="searchterm" class="block_form_field" for="searchterm_input">Search term or keywords:</label>
                     <input id="searchterm_input"  class="block_form_field"type="textarea" name="searchterm" placeholder="e.g. Berlin">
 
                     <input type="hidden" id="discoveryLongitude" name="longitude">
