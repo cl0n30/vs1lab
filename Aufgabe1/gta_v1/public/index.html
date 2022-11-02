@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <header class="header">
+    <header class="header row">
         <img src="./images/location.png" class="header__image" alt="an image of a map and location">
         <h1 class="header__title">GeoTagApp</h1>
         <nav class="header__navigation">
@@ -21,29 +21,29 @@
         </nav>
     </header>
 
-    <main class="main">
-        <section class="main__tagging tagging col-2">
+    <main class="main row">
+        <section class="main__tagging tagging col-3">
             <h2>Tagging</h2>
 
             <!-- ############### VS1Lab 1a Form 1 Start -->
             <form id="tag-form" action="/tagging" method="post">
 
-                <fieldset>
+                <fieldset id="tagSet">
                     <legend>Add a new GeoTag</legend>
 
                     <label id="tagLatitudeLabel" for="taglatitude">Latitude:</label>
-                    <input id="tagLatitude" type="textarea" name="tagLatitude" readonly>
+                    <input id="tagLatitude" type="textarea" name="tagLatitude" class="col-10" readonly>
 
                     <label id="tagLongitudeLabel" for="tagLongitude">Longitude:</label>
-                    <input id="tagLongitude" type="textarea" name="tagLongitude" readonly>
+                    <input id="tagLongitude" type="textarea" name="tagLongitude" class="col-10" readonly>
 
                     <label id="nameLabel" for="name">Name:</label>
-                    <input id="name" type="textarea" name="name" maxlength=10 pattern="([A-Z,a-z])+" placeholder="e.g. Central Berlin" required>
+                    <input id="name" type="textarea" name="name" maxlength=10 pattern="([A-Z,a-z])+" placeholder="e.g. Central Berlin" class="col-10" required>
 
                     <label id="hashtagLabel" for="hashtag">Hashtag:</label>
-                    <input id=hashtag type="textarea" name="hashtag" maxlength=11 pattern="(#)([A-Z,a-z])*" placeholder="e.g. #ber">
+                    <input id=hashtag type="textarea" name="hashtag" maxlength=11 pattern="(#)([A-Z,a-z])*" placeholder="e.g. #ber" class="col-10">
 
-                    <input id="addTag" type="submit" value="Add Tag" class="col-11">
+                    <input id="addTag" type="submit" value="Add Tag" class="col-10">
                 </fieldset>    
 
             </form>
@@ -51,22 +51,22 @@
 
         </section>
 
-        <section class="main__discovery discovery col-8">
+        <section class="main__discovery discovery col-10">
             <h2 class="discovery__title">Discovery</h2>
 
             <!-- ############### VS1Lab 1a Form 2 Start -->
             <form class="discovery__search" id="discoveryFilterForm" action="/discovery" method="post">
 
-                <fieldset>
+                <fieldset id="discoverySet">
                     <legend>Search</legend>
 
                     <label id="searchtermLabel" for="searchterm">Search term or keywords:</label>
-                    <input id="searchterm" type="textarea" name="searchterm" placeholder="e.g. Berlin">
+                    <input id="searchterm" type="textarea" name="searchterm" placeholder="e.g. Berlin" class="col-4">
 
                     <input type="hidden" id="discoveryLongitude" name="discoveryLongitude">
                     <input type="hidden" id="discoveryLatitude" name="discoveryLatitude">
 
-                    <input id="search" type="submit" value="Search">
+                    <input id="search" type="submit" value="Search" class="col-4">
                 </fieldset>
                 
             </form>
@@ -89,7 +89,7 @@
 
     </main>
 
-    <footer class="footer">
+    <footer class="footer row">
         <span>(c) 2021/22 HKA_IWI_VSYS</span>
     </footer>
 </body>
