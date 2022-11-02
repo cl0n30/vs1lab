@@ -157,7 +157,27 @@ legend {
   margin: 25px;
 }
 
-/* ... your code here ... */
+.discovery__wrapper {
+  margin-top: 25px;
+}
+
+.discovery__taglist {
+  margin-right: 25px;
+}
+
+.discovery__results {
+  list-style-type: none;
+}
+
+.discovery_result_item {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: var(--background-color);
+  border-color: var(--border-color);
+  border-style: solid;
+  border-width: 1px;
+  color: var(--link-color);
+}
 
 
 /* ### TODO ### Styles for Footer Component */
