@@ -133,7 +133,10 @@ legend {
 
 /* ### TODO ### Styles for Main Component */
 
-/* ... your code here ... */
+.main {
+  display: flex;
+  flex-direction: row;
+}
 
 .subheaders {
   margin-bottom: 20px;
@@ -159,6 +162,10 @@ legend {
 
 .discovery__wrapper {
   margin-top: 25px;
+  display: flex;
+  flex-direction: row;
+}
+
 }
 
 .discovery__taglist {
@@ -204,4 +211,19 @@ legend {
 
 /* ### TODO ### Media Queries */
 
-/* ... your code here ... */
+@media screen and (max-width: 700px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .discovery__wrapper {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  [class*="col-"] {
+    width: 100%;
+  }
+}
