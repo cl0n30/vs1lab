@@ -46,7 +46,9 @@ a {
 
 /* ### TODO ### Styles for other HTML elements */
 
-/* ... your code here ... */
+legend {
+  margin: 2ex;
+}
 
 
 /* Grid styles (no changes required) */
