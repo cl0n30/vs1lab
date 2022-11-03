@@ -116,6 +116,7 @@ legend {
 /* ... your code here ... */
 .header {
   background-color: var(--background-color);
+  min-height: 100px;
   max-height: 100px;
   display: flex;
   align-items: center;
@@ -203,6 +204,7 @@ legend {
 
 .footer {
   background-color: var(--background-color);
+  min-height: 50px;
   max-height: 50px;
   display: flex;
   align-items: center;
