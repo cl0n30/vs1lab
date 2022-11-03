@@ -187,7 +187,7 @@ legend {
   list-style-type: none;
 }
 
-.discovery_result_item {
+.discovery__results li {
   padding: 10px;
   margin-bottom: 10px;
   background-color: var(--background-color);
