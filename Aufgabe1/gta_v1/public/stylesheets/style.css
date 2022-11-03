@@ -195,7 +195,7 @@ legend {
 #mapView {
   display: block;
   width: 100%;
-  max-width: 600px;
+  height: 50vh;
 }
 
 /* ### TODO ### Styles for Footer Component */
