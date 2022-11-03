@@ -158,7 +158,6 @@ img.header__image {
   display: flex;
   flex-direction: column;
   height: 5ex;
-  /*width: 25ex;*/
   padding: 2ex;
   margin: 2ex;
 }
@@ -231,7 +230,7 @@ footer {
 /* ### TODO ### Media Queries */
 
 @media only screen and (max-width: 850px) {
-  main {
+  .main {
     display: flex;
     flex-direction: column;
   }
@@ -243,6 +242,7 @@ footer {
 
   .header {
     display: flex;
+    flex-direction: column;
     justify-content:space-evenly;
     align-items: center;
     padding-top: 5ex;
@@ -251,6 +251,8 @@ footer {
 
   h1.header__title {
     font-size : 5ex;
+    padding-top: 1ex;
+    padding-bottom: 1ex;
   }
   
   img.header__image {
@@ -268,5 +270,4 @@ footer {
   .discovery input {
     width: calc(83.33% - 1rem);
   }
-  
 }
