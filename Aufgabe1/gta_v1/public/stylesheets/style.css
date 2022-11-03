@@ -196,7 +196,7 @@ legend {
 #mapView {
   display: block;
   width: 100%;
-  height: 50vh;
+  max-height: 50vh;
 }
 
 /* ### TODO ### Styles for Footer Component */
@@ -221,12 +221,6 @@ legend {
 
 @media screen and (max-width: 700px) {
   .main {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .discovery__wrapper {
-    margin-top: 25px;
     display: flex;
     flex-direction: column;
   }
