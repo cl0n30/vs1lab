@@ -101,6 +101,8 @@ class MapManager {
  * TODO: 'updateLocation'
  * A function to retrieve the current location and update the page.
  * It is called once the page has been fully loaded.
+ * 
+ * API-Key: XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI
  */
 // ... your code here ...
 
