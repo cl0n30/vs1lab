@@ -46,7 +46,9 @@ a {
 
 /* ### TODO ### Styles for other HTML elements */
 
-/* ... your code here ... */
+legend {
+  margin: 2ex;
+}
 
 
 /* Grid styles (no changes required) */
@@ -109,29 +111,170 @@ a {
 
 /* ### TODO ### Styles for Header Component */
 
-/* ... your code here ... */
+.header {
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 5ex;
+  padding-bottom: 5ex;
+}
+
+h1.header__title {
+  font-size : 8ex;
+}
+
+img.header__image {
+  height: 8ex;
+}
 
 
 /* ### TODO ### Styles for Main Component */
 
-/* ... your code here ... */
-
+.main {
+  display: flex;
+  justify-content:space-between;
+}
 
 /* ### TODO ### Styles for Tagging component */
 
-/* ... your code here ... */
+.main h2 {
+  margin-top: 5ex;
+  margin-left: 2ex;
+}
 
+#tag-form{
+  margin: 3ex;
+ }
+
+ #tagSet{
+  padding-block-start: 3ex;
+}
+
+#tag-form label {
+  color: var(--gray-color);
+  padding: 2ex;
+}
+
+#tag-form input {
+  display: flex;
+  flex-direction: column;
+  height: 5ex;
+  padding: 2ex;
+  margin: 2ex;
+}
+
+#addTag {
+  line-height: 1ex;
+}
 
 /* ### TODO ### Styles for Discovery component */
 
-/* ... your code here ... */
+div.discovery__wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+}
 
+#discoverySet{
+  padding-block-start: 3ex;
+}
+
+div.discovery__taglist li {
+  display: flex;
+  flex-direction: column;
+  color: var(--link-color);
+  background-color: var(--background-color);
+  border: solid;
+  border-color: var(--border-color);
+  padding: 2ex;
+  margin: 3ex;
+}
+
+div.discovery__map {
+  display: flex;
+  flex-direction:  column;
+  margin: 3ex;
+}
+
+form.discovery__search {
+  margin: 3ex;
+}
+
+form.discovery__search input {
+  display: flex;
+  flex-direction: column;
+  height: 5ex;
+  padding: 2ex;
+  margin: 2ex;
+}
+
+form.discovery__search label {
+  color: var(--gray-color);
+  padding: 2ex;
+}
+
+#search {
+  line-height: 1ex;
+}
 
 /* ### TODO ### Styles for Footer Component */
 
-/* ... your code here ... */
+footer {
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 1ex;
+  padding-bottom: 1ex;
+}
+
+#footer_title {
+  margin: 25px;
+}
 
 
 /* ### TODO ### Media Queries */
 
-/* ... your code here ... */
+@media only screen and (max-width: 850px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  div.discovery__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    align-items: center;
+    padding-top: 5ex;
+    padding-bottom: 5ex;
+  }
+
+  h1.header__title {
+    font-size : 5ex;
+    padding-top: 1ex;
+    padding-bottom: 1ex;
+  }
+  
+  img.header__image {
+    height: 5ex;
+  }
+
+  .tagging {
+    width: 100%;
+  }
+
+  .discovery {
+    width: 100%;
+  }
+
+  .discovery input {
+    width: calc(83.33% - 1rem);
+  }
+}
