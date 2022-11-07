@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <header class="header row">
+    <header class="header">
         <img src="./images/location.png" class="header__image" alt="an image of a map and location">
         <h1 class="header__title">GeoTagApp</h1>
         <nav class="header__navigation">
@@ -31,11 +31,11 @@
                 <fieldset id="tagSet">
                     <legend>Add a new GeoTag</legend>
 
-                    <label id="tagLatitudeLabel" for="taglatitude">Latitude:</label>
-                    <input id="tagLatitude" type="textarea" name="tagLatitude" class="col-10" readonly>
+                    <label id="tagLatitudeLabel" for="tagLatitude">Latitude:</label>
+                    <input id="tagLatitude" type="textarea" value="49.01379" name="tagLatitude" class="col-10" readonly>
 
                     <label id="tagLongitudeLabel" for="tagLongitude">Longitude:</label>
-                    <input id="tagLongitude" type="textarea" name="tagLongitude" class="col-10" readonly>
+                    <input id="tagLongitude" type="textarea" value="8.390071" name="tagLongitude" class="col-10" readonly>
 
                     <label id="nameLabel" for="name">Name:</label>
                     <input id="name" type="textarea" name="name" maxlength=10 pattern="([A-Z,a-z])+" placeholder="e.g. Central Berlin" class="col-10" required>
@@ -89,8 +89,8 @@
 
     </main>
 
-    <footer class="footer row">
-        <span>(c) 2021/22 HKA_IWI_VSYS</span>
+    <footer class="footer">
+        <span id="footer_title">(c) 2021/22 HKA_IWI_VSYS</span>
     </footer>
 </body>
 
