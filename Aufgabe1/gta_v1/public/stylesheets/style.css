@@ -37,7 +37,6 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   min-height: 100vh;
 }
 
@@ -45,13 +44,11 @@ a {
   color: var(--link-color);
 }
 
-legend {
-  margin-left: 10px;
-}
-
 /* ### TODO ### Styles for other HTML elements */
 
-/* ... your code here ... */
+legend {
+  margin: 2ex;
+}
 
 
 /* Grid styles (no changes required) */
@@ -114,122 +111,170 @@ legend {
 
 /* ### TODO ### Styles for Header Component */
 
-/* ... your code here ... */
 .header {
   background-color: var(--background-color);
-  min-height: 100px;
-  max-height: 100px;
   display: flex;
-  align-items: center;
   justify-content: space-around;
+  align-items: center;
+  padding-top: 5ex;
+  padding-bottom: 5ex;
 }
 
-.header__image {
-  height: 50px;
-  width: 50px;
+h1.header__title {
+  font-size : 8ex;
 }
+
+img.header__image {
+  height: 8ex;
+}
+
 
 /* ### TODO ### Styles for Main Component */
 
 .main {
   display: flex;
-  flex-direction: row;
-}
-
-.subheaders {
-  margin-bottom: 20px;
+  justify-content:space-between;
 }
 
 /* ### TODO ### Styles for Tagging component */
 
-
-#tag_inputs input {
-  min-width: 200px;
-  height: 30px;
-  padding: 5px;
-  width: 80%;
+.main h2 {
+  margin-top: 5ex;
+  margin-left: 2ex;
 }
 
-.block_form_field {
-  display: block;
-  margin: 10px;
+#tag-form{
+  margin: 3ex;
 }
 
-.main__tagging {
-  margin: 25px;
+#tagSet{
+  padding-block-start: 3ex;
 }
 
+#tag-form label {
+  color: var(--gray-color);
+  padding: 2ex;
+}
+
+#tag-form input {
+  display: flex;
+  flex-direction: column;
+  height: 5ex;
+  padding: 2ex;
+  margin: 2ex;
+}
+
+#addTag {
+  line-height: 1ex;
+}
 
 /* ### TODO ### Styles for Discovery component */
 
-.main__discovery {
-  margin: 25px;
-}
-
-.discovery__wrapper {
-  margin-top: 25px;
+div.discovery__wrapper {
   display: flex;
   flex-direction: row;
+  justify-content:space-between;
 }
 
-#search_inputs input {
-  min-width: 200px;
-  height: 30px;
-  padding: 5px;
-  width: 80%;
+#discoverySet{
+  padding-block-start: 3ex;
 }
 
-.discovery__taglist {
-  margin-right: 25px;
-}
-
-.discovery__results {
-  list-style-type: none;
-}
-
-.discovery__results li {
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: var(--background-color);
-  border-color: var(--border-color);
-  border-style: solid;
-  border-width: 1px;
+div.discovery__taglist li {
+  display: flex;
+  flex-direction: column;
   color: var(--link-color);
+  background-color: var(--background-color);
+  border: solid;
+  border-color: var(--border-color);
+  padding: 2ex;
+  margin: 3ex;
 }
 
-#mapView {
-  display: block;
-  width: 100%;
-  max-height: 50vh;
+div.discovery__map {
+  display: flex;
+  flex-direction:  column;
+  margin: 3ex;
+}
+
+form.discovery__search {
+  margin: 3ex;
+}
+
+form.discovery__search input {
+  display: flex;
+  flex-direction: column;
+  height: 5ex;
+  padding: 2ex;
+  margin: 2ex;
+}
+
+form.discovery__search label {
+  color: var(--gray-color);
+  padding: 2ex;
+}
+
+#search {
+  line-height: 1ex;
 }
 
 /* ### TODO ### Styles for Footer Component */
 
-/* ... your code here ... */
-
-.footer {
+footer {
   background-color: var(--background-color);
-  min-height: 50px;
-  max-height: 50px;
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: start;
+  padding-top: 1ex;
+  padding-bottom: 1ex;
 }
 
-#footer__info {
-  margin-left: 25px;
+#footer_title {
+  margin: 25px;
 }
 
 
 /* ### TODO ### Media Queries */
 
-@media screen and (max-width: 700px) {
+@media only screen and (max-width: 850px) {
   .main {
     display: flex;
     flex-direction: column;
   }
 
-  [class*="col-"] {
+  div.discovery__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    align-items: center;
+    padding-top: 5ex;
+    padding-bottom: 5ex;
+  }
+
+  h1.header__title {
+    font-size : 5ex;
+    padding-top: 1ex;
+    padding-bottom: 1ex;
+  }
+
+  img.header__image {
+    height: 5ex;
+  }
+
+  .tagging {
     width: 100%;
+  }
+
+  .discovery {
+    width: 100%;
+  }
+
+  .discovery input {
+    width: calc(83.33% - 1rem);
   }
 }

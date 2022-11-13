@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <header class="header row">
+    <header class="header">
         <img src="./images/location.png" class="header__image" alt="an image of a map and location">
         <h1 class="header__title">GeoTagApp</h1>
         <nav class="header__navigation">
@@ -21,66 +21,66 @@
         </nav>
     </header>
 
-    <main class="main">
-        <section class="main__tagging tagging col-4">
-            <h2 id="tagging__title" class="subheaders">Tagging</h2>
+    <main class="main row">
+        <section class="main__tagging tagging col-3">
+            <h2>Tagging</h2>
 
             <!-- ############### VS1Lab 1a Form 1 Start -->
             <form id="tag-form" action="/tagging" method="post">
 
-                <fieldset id="tag_inputs">
+                <fieldset id="tagSet">
                     <legend>Add a new GeoTag</legend>
 
-                    <label id="latitude" class="block_form_field" for="latitude_input">Latitude:</label>
-                    <input id="latitude_input" class="block_form_field" type="textarea" name="tagLatitude" readonly>
+                    <label id="tagLatitudeLabel" for="tagLatitude">Latitude:</label>
+                    <input id="tagLatitude" type="textarea" value="49.01379" name="tagLatitude" class="col-10" readonly>
 
-                    <label id="longitude" class="block_form_field" for="longitude_input">Longitude:</label>
-                    <input id="longitude_input" class="block_form_field" type="textarea" name="tagLongitude" readonly>
+                    <label id="tagLongitudeLabel" for="tagLongitude">Longitude:</label>
+                    <input id="tagLongitude" type="textarea" value="8.390071" name="tagLongitude" class="col-10" readonly>
 
-                    <label id="name" class="block_form_field" for="name_input">Name:</label>
-                    <input id="name_input" class="block_form_field" type="textarea" name="name" maxlength=10 pattern="([A-Z,a-z])+" placeholder="e.g. Central Berlin" required>
+                    <label id="nameLabel" for="name">Name:</label>
+                    <input id="name" type="textarea" name="name" maxlength=10 pattern="([A-Z,a-z])+" placeholder="e.g. Central Berlin" class="col-10" required>
 
-                    <label id="hashtag" class="block_form_field" for="hashtag_input">Hashtag:</label>
-                    <input id="hashtag_input" class="block_form_field" type="textarea" name="hashtag" maxlength=11 pattern="(#)([A-Z,a-z])*" placeholder="e.g. #ber">
+                    <label id="hashtagLabel" for="hashtag">Hashtag:</label>
+                    <input id=hashtag type="textarea" name="hashtag" maxlength=11 pattern="(#)([A-Z,a-z])*" placeholder="e.g. #ber" class="col-10">
 
-                    <input id="addTag" class="block_form_field" type="submit" value="Add Tag">
-                </fieldset>    
+                    <input id="addTag" type="submit" value="Add Tag" class="col-10">
+                </fieldset>
 
             </form>
             <!-- ############### VS1Lab 1a Form 1 End -->
 
         </section>
 
-        <section class="main__discovery col-12">
-            <h2 id="discovery__title" class="subheaders">Discovery</h2>
+        <section class="main__discovery discovery col-9">
+            <h2 class="discovery__title">Discovery</h2>
 
             <!-- ############### VS1Lab 1a Form 2 Start -->
             <form class="discovery__search" id="discoveryFilterForm" action="/discovery" method="post">
 
-                <fieldset id="search_inputs">
+                <fieldset id="discoverySet">
                     <legend>Search</legend>
 
-                    <label id="searchterm" class="block_form_field" for="searchterm_input">Search term or keywords:</label>
-                    <input id="searchterm_input"  class="block_form_field"type="textarea" name="searchterm" placeholder="e.g. Berlin">
+                    <label id="searchtermLabel" for="searchterm">Search term or keywords:</label>
+                    <input id="searchterm" type="textarea" name="searchterm" placeholder="e.g. Berlin" class="col-4">
 
-                    <input type="hidden" id="discoveryLongitude" name="longitude">
-                    <input type="hidden" id="discoveryLatitude" name="latitude">
+                    <input type="hidden" id="discoveryLongitude" name="discoveryLongitude">
+                    <input type="hidden" id="discoveryLatitude" name="discoveryLatitude">
 
-                    <input id="search" class="block_form_field" type="submit" value="Search">
+                    <input id="search" type="submit" value="Search" class="col-4">
                 </fieldset>
-                
+
             </form>
             <!-- ############### VS1Lab 1a Form 2 End -->
 
             <div class="discovery__wrapper">
-                <div class="discovery__taglist col-4">
+                <div class="discovery__taglist">
                     <ul class="discovery__results" id="discoveryResults">
                         <li>Castle (49.01379, 8.404435) #sight</li>
                         <li>IWI (49.01379, 8.390071) #edu</li>
                     </ul>
                 </div>
 
-                <div class="discovery__map col-12">
+                <div class="discovery__map">
                     <img src="./images/mapview.jpg" alt="a map with locations" id="mapView" />
                     <span>Result map</span>
                 </div>
@@ -89,8 +89,8 @@
 
     </main>
 
-    <footer class="footer row">
-        <span id ="footer__info">(c) 2021/22 HKA_IWI_VSYS</span>
+    <footer class="footer">
+        <span id="footer_title">(c) 2021/22 HKA_IWI_VSYS</span>
     </footer>
 </body>
 
