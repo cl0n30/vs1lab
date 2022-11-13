@@ -117,6 +117,10 @@ function setLocation(helper) {
 
     $("#discoveryLatitude").val(helper.latitude);
     $("#discoveryLongitude").val(helper.longitude);
+    let mapManager = new MapManager("XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI");
+    let mapUrl = mapManager.getMapUrl(parseFloat(helper.latitude), parseFloat(helper.longitude));
+    console.log(mapUrl);
+    $("#mapView").attr("src", mapUrl);
 }
 
 // Wait for the page to fully load its DOM content, then call updateLocation
