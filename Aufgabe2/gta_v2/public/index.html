@@ -41,7 +41,7 @@
                     <input id="name" type="textarea" name="name" maxlength=10 pattern="([A-Z,a-z])+" placeholder="e.g. Central Berlin" class="col-10" required>
 
                     <label id="hashtagLabel" for="hashtag">Hashtag:</label>
-                    <input id=hashtag type="textarea" name="hashtag" maxlength=11 pattern="(#)([A-Z,a-z])*" placeholder="e.g. #ber" class="col-10">
+                    <input id="hashtag" type="textarea" name="hashtag" maxlength=11 pattern="(#)([A-Z,a-z])*" placeholder="e.g. #ber" class="col-10">
 
                     <input id="addTag" type="submit" value="Add Tag" class="col-10">
                 </fieldset>    
@@ -92,6 +92,9 @@
     <footer class="footer">
         <span id="footer_title">(c) 2021/22 HKA_IWI_VSYS</span>
     </footer>
+    <!-- Load JavaScripts
+    ================================================== -->
+    <script src="./javascripts/geotagging.js"></script>
 </body>
 
 </html>
