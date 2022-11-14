@@ -109,14 +109,12 @@ function updateLocation() {
     function setLocation(helper) {
         $("#tagLatitude").val(helper.latitude);
         $("#tagLongitude").val(helper.longitude);
-        console.log(helper.latitude);
-        console.log(helper.longitude);
 
         $("#discoveryLatitude").val(helper.latitude);
         $("#discoveryLongitude").val(helper.longitude);
         let mapManager = new MapManager("XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI");
         let mapUrl = mapManager.getMapUrl(parseFloat(helper.latitude), parseFloat(helper.longitude));
-        console.log(mapUrl);
+
         $("#mapView").attr("src", mapUrl);
     }
     
