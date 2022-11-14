@@ -104,9 +104,28 @@ class MapManager {
  * 
  * API-Key: XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI
  */
-// ... your code here ...
+function updateLocation() {
+    
+    /**
+     * sets latitude and longitude in the forms and creates the map
+     * @param {LocationHelper} helper 
+     */
+    function setLocation(helper) {
+        document.getElementById("tagLatitude").setAttribute("value",helper.latitude);
+        document.getElementById("tagLongitude").setAttribute("value",helper.longitude);
+        document.getElementById("discoveryLatitude").setAttribute("value",helper.latitude);
+        document.getElementById("discoveryLongitude").setAttribute("value",helper.longitude);
+
+        let mapManager = new MapManager("XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI");
+        let mapURL = mapManager.getMapUrl(helper.latitude, helper.longitude);
+        document.getElementById("mapView").setAttribute("src",mapURL);
+    }
+
+    LocationHelper.findLocation(setLocation);
+}
 
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
-    alert("Please change the script 'geotagging.js'");
+    //alert("Please change the script 'geotagging.js'");
+    updateLocation();
 });
