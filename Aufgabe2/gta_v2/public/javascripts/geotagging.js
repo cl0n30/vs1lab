@@ -63,7 +63,7 @@ class LocationHelper {
  * A class to help using the MapQuest map service.
  */
 class MapManager {
-    #apiKey = 'XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI';
+    #apiKey = '';
 
     /**
      * Create a new MapManager instance.
