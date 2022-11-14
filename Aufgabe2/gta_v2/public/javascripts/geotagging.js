@@ -105,16 +105,17 @@ class MapManager {
  */
 // ... your code here ...
 
-static updateLocation(){
+function updateLocation(){
 		
-		let location = new LocationHelper();
-		location.findLocation(writeLocation);
+		LocationHelper.findLocation(writeLocation);
 		
 	}
 	
-static writeLocation(helper){
-	document.getElementById("tagLatitude").setAttribute("value", helper.get  latitude());
-	document.getElementById("tagLongitude").setAttribute("value", helper.get longitude());
+function writeLocation(helper){
+	document.getElementById("tagLatitude").setAttribute("value", helper.latitude);
+	document.getElementById("tagLongitude").setAttribute("value", helper.longitude);
+	document.getElementById("discoveryLongitude").setAttribute("value", helper.longitude);
+	document.getElementById("discoveryLatitude").setAttribute("value", helper.longitude);
 }
 
 // Wait for the page to fully load its DOM content, then call updateLocation
