@@ -63,7 +63,7 @@ class LocationHelper {
  * A class to help using the MapQuest map service.
  */
 class MapManager {
-    #apiKey = 'XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI';
+    #apiKey = '';
 
     /**
      * Create a new MapManager instance.
@@ -98,13 +98,31 @@ class MapManager {
 }
 
 /**
- * TODO: 'updateLocation'
  * A function to retrieve the current location and update the page.
  * It is called once the page has been fully loaded.
  */
-// ... your code here ...
+function updateLocation() {
+    /**
+     * Sets the location from the helper in the corresponding html input fields
+     * @param {LocationHelper} helper
+     */
+    function setLocation(helper) {
+        $("#tagLatitude").val(helper.latitude);
+        $("#tagLongitude").val(helper.longitude);
+
+        $("#discoveryLatitude").val(helper.latitude);
+        $("#discoveryLongitude").val(helper.longitude);
+        let mapManager = new MapManager("XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI");
+        let mapUrl = mapManager.getMapUrl(parseFloat(helper.latitude), parseFloat(helper.longitude), [], 13);
+
+        $("#mapView").attr("src", mapUrl);
+    }
+    
+    LocationHelper.findLocation(setLocation);
+}
 
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
-    alert("Please change the script 'geotagging.js'");
+    //alert("Please change the script 'geotagging.js'");
+    updateLocation();
 });
