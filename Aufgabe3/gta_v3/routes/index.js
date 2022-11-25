@@ -49,6 +49,7 @@ router.get('/', (req, res) => {
         taglist: [],
         latitude: "",
         longitude: "",
+        taglist_json: ""
     })
 });
 
@@ -82,7 +83,8 @@ router.post('/tagging', (req, res) => {
     res.render('index', { 
         taglist: nearbyTags,
         latitude: latitude,
-        longitude: longitude
+        longitude: longitude,
+        taglist_json: JSON.stringify(nearbyTags)
     });
 });
 
@@ -111,7 +113,8 @@ router.post('/discovery', (req, res) => {
     res.render('index', { 
         taglist: nearbyTags,
         latitude: latitude,
-        longitude: longitude
+        longitude: longitude,
+        taglist_json: JSON.stringify(nearbyTags)
     });
 });
 

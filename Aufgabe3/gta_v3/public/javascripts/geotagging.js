@@ -24,8 +24,18 @@ function updateLocation() {
 
         $("#discoveryLatitude").val(helper.latitude);
         $("#discoveryLongitude").val(helper.longitude);
+
+        let taglistJson = $("#mapView").data("tags");
+        let coordinates = [];
+        if (taglistJson) {
+            let taglist = JSON.parse(taglistJson);
+            taglist.forEach(tag => {
+                coordinates.push(`${tag.latitude},${tag.longitude}||`);
+            });
+        }
+        
         let mapManager = new MapManager("XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI");
-        let mapUrl = mapManager.getMapUrl(parseFloat(helper.latitude), parseFloat(helper.longitude), [], 13);
+        let mapUrl = mapManager.getMapUrl(parseFloat(helper.latitude), parseFloat(helper.longitude), coordinates, 13);
 
         $("#mapView").attr("src", mapUrl);
     }
