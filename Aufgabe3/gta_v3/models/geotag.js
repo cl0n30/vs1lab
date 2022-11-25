@@ -14,14 +14,14 @@ class GeoTag {
     /**
      * 
      * @param {string} name 
-     * @param {number} lat 
-     * @param {number} lon 
+     * @param {number} latitude 
+     * @param {number} longitude 
      * @param {string} hashtag 
      */
-    constructor(name, lat, lon, hashtag) {
+    constructor(name, latitude, longitude, hashtag) {
         this.name = name;
-        this.lat = lat;
-        this.lon = lon;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.hashtag = hashtag;
     }
     

@@ -80,8 +80,8 @@ class InMemoryGeoTagStore{
 
         let nearbyTags = [];
         this.#geoTags.forEach((tag) => {
-            let isInRadius = (tag.lat <= maxLat) && (tag.lon >= minLat) 
-                && (tag.long <= maxLon) && (tag.lon >= minLon);
+            let isInRadius = (tag.latitude <= maxLat) && (tag.latitude >= minLat) 
+                && (tag.longitude <= maxLon) && (tag.longitude >= minLon);
 
             if (isInRadius) {
                 nearbyTags.push(tag);
