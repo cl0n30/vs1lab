@@ -11,13 +11,13 @@
  */
 
 const express = require('express');
+const bodyparser = require('body-parser');
 const router = express.Router();
 
 /**
  * The module "geotag" exports a class GeoTagStore. 
  * It represents geotags.
  * 
- * TODO: implement the module in the file "../models/geotag.js"
  */
 // eslint-disable-next-line no-unused-vars
 const GeoTag = require('../models/geotag');
@@ -26,10 +26,13 @@ const GeoTag = require('../models/geotag');
  * The module "geotag-store" exports a class GeoTagStore. 
  * It provides an in-memory store for geotag objects.
  * 
- * TODO: implement the module in the file "../models/geotag-store.js"
  */
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
+
+router.use(bodyparser.urlencoded({ extended: true }));
+
+var tagStore = new GeoTagStore();
 
 /**
  * Route '/' for HTTP 'GET' requests.
@@ -42,7 +45,7 @@ const GeoTagStore = require('../models/geotag-store');
 
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
-  res.render('index', { taglist: [] })
+    res.render('index', { taglist: [] })
 });
 
 /**
@@ -60,7 +63,17 @@ router.get('/', (req, res) => {
  * by radius around a given location.
  */
 
-// TODO: ... your code here ...
+router.post('/tagging', (req, res) => {
+    let tag = new GeoTag(req.body.name, req.body.tagLatitude, req.body.tagLongitude, req.hashtag);
+    tagStore.addGeoTag(tag);
+    console.log("added tag: "+tag.name);
+    let nearbyTags = tagStore.getNearbyGeoTags(tag.latitude, tag.longitude);
+    res.render('index', { 
+        taglist: nearbyTags,
+        latitude: req.body.tagLatitude,
+        longitude: req.body.longitude
+    });
+});
 
 /**
  * Route '/discovery' for HTTP 'POST' requests.
@@ -78,6 +91,17 @@ router.get('/', (req, res) => {
  * by radius and keyword.
  */
 
-// TODO: ... your code here ...
+router.post('/discovery', (req, res) => {
+    let searchTerm = req.body.searchTerm;
+    let latitude = req.body.discoverLatitude;
+    let longitude = req.body.discoveryLongitude;
+    
+    let nearbyTags = tagStore.searchNearbyGeoTags(latitude, longitude, searchTerm);
+    res.render('index', { 
+        taglist: nearbyTags,
+        latitude: req.body.tagLatitude,
+        longitude: req.body.longitude
+    });
+});
 
 module.exports = router;
