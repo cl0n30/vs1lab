@@ -64,14 +64,21 @@ router.get('/', (req, res) => {
  */
 
 router.post('/tagging', (req, res) => {
-    let tag = new GeoTag(req.body.name, req.body.tagLatitude, req.body.tagLongitude, req.hashtag);
+    let name = req.body.name;
+    let latitude = req.body.tagLatitude;
+    let longitude = req.body.tagLongitude;
+    let hashtag = req.body.hashtag;
+
+    let tag = new GeoTag(name, latitude, longitude, hashtag);
     tagStore.addGeoTag(tag);
     console.log("added tag: "+tag.name);
-    let nearbyTags = tagStore.getNearbyGeoTags(tag.latitude, tag.longitude);
+
+    let nearbyTags = tagStore.getNearbyGeoTags(latitude, longitude);
+
     res.render('index', { 
         taglist: nearbyTags,
-        latitude: req.body.tagLatitude,
-        longitude: req.body.longitude
+        latitude: latitude,
+        longitude: longitude
     });
 });
 
@@ -99,8 +106,8 @@ router.post('/discovery', (req, res) => {
     let nearbyTags = tagStore.searchNearbyGeoTags(latitude, longitude, searchTerm);
     res.render('index', { 
         taglist: nearbyTags,
-        latitude: req.body.tagLatitude,
-        longitude: req.body.longitude
+        latitude: latitude,
+        longitude: longitude
     });
 });
 
