@@ -60,23 +60,21 @@ class InMemoryGeoTagStore{
 
     /**
      * 
-     * @param {GeolocationPosition} location 
+     * @param {number} latitude 
+     * @param {number} longitude 
      * @returns {Array<GeoTag>}
      */
-    getNearbyGeoTags(location) {
-        let lat = location.coords.latitude; 
-        let lon = location.coords.longitude;
-
+    getNearbyGeoTags(latitude, longitude) {
         //1 degree of latitude ~ 111111 m in y direction
         //1 degree of longitude ~ 111111 * cos(lat) m in x direction
         const oneDegreeInMeters = 111111;
         const latOffset = this.#nearbyRadius / oneDegreeInMeters;
-        const lonOffset = this.#nearbyRadius / (oneDegreeInMeters * Math.cos(lat));
+        const lonOffset = this.#nearbyRadius / (oneDegreeInMeters * Math.cos(latitude));
 
-        let maxLat = lat + latOffset;
-        let minLat = lat - latOffset;
-        let maxLon = lon + lonOffset;
-        let minLon = lon - lonOffset;
+        let maxLat = latitude + latOffset;
+        let minLat = latitude - latOffset;
+        let maxLon = longitude + lonOffset;
+        let minLon = longitude - lonOffset;
 
         let nearbyTags = [];
         this.#geoTags.forEach((tag) => {
@@ -92,12 +90,13 @@ class InMemoryGeoTagStore{
 
     /**
      * 
-     * @param {GeolocationPosition} location 
+     * @param {number} latitude 
+     * @param {number} longitude 
      * @param {string} query 
      * @returns {Array<GeoTag>}
      */
-    searchNearbyGeoTags(location, query) {
-        let nearbyTags = this.getNearbyGeoTags(location);
+    searchNearbyGeoTags(latitude, longitude, query) {
+        let nearbyTags = this.getNearbyGeoTags(latitude, longitude);
         if (nearbyTags.length == 0) {
             return [];
         }
