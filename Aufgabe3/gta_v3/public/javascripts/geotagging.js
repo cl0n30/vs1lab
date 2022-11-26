@@ -25,10 +25,10 @@ function updateLocation() {
         $("#discoveryLatitude").val(helper.latitude);
         $("#discoveryLongitude").val(helper.longitude);
 
-        let taglistJson = $("#mapView").data("tags");
+        let taglist = $("#mapView").data("tags");
         let coordinates = [];
-        if (taglistJson) {
-            let taglist = JSON.parse(taglistJson);
+        console.log(taglist);
+        if (taglist) {
             taglist.forEach(tag => {
                 coordinates.push(`${tag.latitude},${tag.longitude}||`);
             });
