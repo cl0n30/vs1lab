@@ -105,8 +105,8 @@ router.post('/tagging', (req, res) => {
  */
 
 router.post('/discovery', (req, res) => {
-    let searchTerm = req.body.searchTerm;
-    let latitude = req.body.discoverLatitude;
+    let searchTerm = req.body.searchterm;
+    let latitude = req.body.discoveryLatitude;
     let longitude = req.body.discoveryLongitude;
     
     let nearbyTags = tagStore.searchNearbyGeoTags(latitude, longitude, searchTerm);
