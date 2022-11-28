@@ -26,6 +26,83 @@
 class InMemoryGeoTagStore{
 
     // TODO: ... your code here ...
+    #geoTags = [];
+    #nearbyRadius = 500;
+
+    constructor() {
+        let exampleTags = GeoTagExamples.tagList;
+        exampleTags.forEach((elem) => {
+            let tag = new GeoTag(elem[0], elem[1], elem[2], elem[3]);
+            this.#geoTags.push(tag);
+        });
+    }
+
+    /**
+     * 
+     * @param {GeoTag} geoTag 
+     */
+    addGeoTag(geoTag) {
+        this.#geoTags.push(geoTag);
+    }
+
+    /**
+     * 
+     * @param {string} geoTag 
+     */
+    removeGeoTag(tagName) {
+        for (let i = 0; i < this.#geoTags.length; i++) {
+            if (this.#geoTags[i].name == tagName) {
+                this.#geoTags.splice(i, 1);
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param {number} latitude 
+     * @param {number} longitude 
+     * @returns {Array<GeoTag>}
+     */
+    getNearbyGeoTags(latitude, longitude) {
+        //1 degree of latitude ~ 111111 m in y direction
+        //1 degree of longitude ~ 111111 * cos(lat) m in x direction
+        const oneDegreeInMeters = 111111;
+        const latOffset = this.#nearbyRadius / oneDegreeInMeters;
+        const lonOffset = this.#nearbyRadius / (oneDegreeInMeters * Math.cos(latitude));
+
+        let maxLat = latitude + latOffset;
+        let minLat = latitude - latOffset;
+        let maxLon = longitude + lonOffset;
+        let minLon = longitude - lonOffset;
+
+        let nearbyTags = [];
+        this.#geoTags.forEach((tag) => {
+            let isInRadius = (tag.latitude <= maxLat) && (tag.latitude >= minLat) 
+                && (tag.longitude <= maxLon) && (tag.longitude >= minLon);
+
+            if (isInRadius) {
+                nearbyTags.push(tag);
+            }
+        });
+        return nearbyTags;
+    }
+
+    /**
+     * 
+     * @param {number} latitude 
+     * @param {number} longitude 
+     * @param {string} query 
+     * @returns {Array<GeoTag>}
+     */
+    searchNearbyGeoTags(latitude, longitude, query) {
+        let nearbyTags = this.getNearbyGeoTags(latitude, longitude);
+        if (nearbyTags.length == 0) {
+            return [];
+        }
+
+        let foundTags = nearbyTags.filter(tag => tag.name.startsWith(query) || tag.hashtag.startsWith(query));
+        return foundTags;
+    }
 
 }
 
