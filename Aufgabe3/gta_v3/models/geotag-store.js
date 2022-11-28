@@ -65,16 +65,19 @@ class InMemoryGeoTagStore{
      * @returns {Array<GeoTag>}
      */
     getNearbyGeoTags(latitude, longitude) {
+        if (latitude == undefined && longitude == undefined) {
+            return this.#geoTags;
+        }
         //1 degree of latitude ~ 111111 m in y direction
         //1 degree of longitude ~ 111111 * cos(lat) m in x direction
         const oneDegreeInMeters = 111111;
         const latOffset = this.#nearbyRadius / oneDegreeInMeters;
         const lonOffset = this.#nearbyRadius / (oneDegreeInMeters * Math.cos(latitude));
 
-        let maxLat = latitude + latOffset;
-        let minLat = latitude - latOffset;
-        let maxLon = longitude + lonOffset;
-        let minLon = longitude - lonOffset;
+        let maxLat = parseFloat(latitude) + parseFloat(latOffset);
+        let minLat = parseFloat(latitude) - parseFloat(latOffset);
+        let maxLon = parseFloat(longitude) + parseFloat(lonOffset);
+        let minLon = parseFloat(longitude) - parseFloat(lonOffset);
 
         let nearbyTags = [];
         this.#geoTags.forEach((tag) => {
