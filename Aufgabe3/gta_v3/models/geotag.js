@@ -18,12 +18,13 @@ class GeoTag {
      * @param {number} longitude 
      * @param {string} hashtag 
      */
-     constructor(name, latitude, longitude, hashtag) {
+    constructor(name, latitude, longitude, hashtag) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.hashtag = hashtag;
     }
+    
 }
 
 module.exports = GeoTag;

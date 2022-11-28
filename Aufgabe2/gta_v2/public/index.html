@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GeoTagApp</title>
     <link rel="stylesheet" href="./stylesheets/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -32,10 +33,10 @@
                     <legend>Add a new GeoTag</legend>
 
                     <label id="tagLatitudeLabel" for="tagLatitude">Latitude:</label>
-                    <input id="tagLatitude" type="textarea" value="49.01379" name="tagLatitude" class="col-10" readonly>
+                    <input id="tagLatitude" type="textarea" name="tagLatitude" class="col-10" readonly>
 
                     <label id="tagLongitudeLabel" for="tagLongitude">Longitude:</label>
-                    <input id="tagLongitude" type="textarea" value="8.390071" name="tagLongitude" class="col-10" readonly>
+                    <input id="tagLongitude" type="textarea" name="tagLongitude" class="col-10" readonly>
 
                     <label id="nameLabel" for="name">Name:</label>
                     <input id="name" type="textarea" name="name" maxlength=10 pattern="([A-Z,a-z])+" placeholder="e.g. Central Berlin" class="col-10" required>
@@ -93,8 +94,6 @@
         <span id="footer_title">(c) 2021/22 HKA_IWI_VSYS</span>
     </footer>
     
-    <!-- Load JavaScripts
-    ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="./javascripts/geotagging.js"></script>
 </body>

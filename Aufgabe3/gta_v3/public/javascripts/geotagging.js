@@ -26,16 +26,9 @@ function updateLocation() {
         $("#discoveryLongitude").val(helper.longitude);
 
         let taglist = $("#mapView").data("tags");
-        let coordinates = [];
-        console.log(taglist);
-        if (taglist) {
-            taglist.forEach(tag => {
-                coordinates.push(`${tag.latitude},${tag.longitude}||`);
-            });
-        }
         
         let mapManager = new MapManager("XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI");
-        let mapUrl = mapManager.getMapUrl(parseFloat(helper.latitude), parseFloat(helper.longitude), coordinates, 13);
+        let mapUrl = mapManager.getMapUrl(parseFloat(helper.latitude), parseFloat(helper.longitude), taglist, 14);
 
         $("#mapView").attr("src", mapUrl);
     }
