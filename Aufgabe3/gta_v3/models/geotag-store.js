@@ -104,7 +104,8 @@ class InMemoryGeoTagStore{
             return [];
         }
 
-        let foundTags = nearbyTags.filter(tag => tag.name.includes(query) || tag.hashtag.includes(query));
+        let foundTags = nearbyTags.filter(tag => tag.name.toLowerCase().includes(query.toLowerCase()) 
+            || tag.hashtag.toLowerCase().includes(query.toLowerCase()));
         return foundTags;
     }
 
