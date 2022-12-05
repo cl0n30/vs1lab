@@ -65,7 +65,7 @@ class InMemoryGeoTagStore{
      * @returns {Array<GeoTag>}
      */
     getNearbyGeoTags(latitude, longitude) {
-        if (latitude == undefined && longitude == undefined) {
+        if (latitude == undefined || longitude == undefined) {
             return this.#geoTags;
         }
         //1 degree of latitude ~ 111111 m in y direction
