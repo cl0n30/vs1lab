@@ -72,17 +72,17 @@ Zur Übersicht folgen noch mal alle Anforderungen in kompakter Form als Checklis
 
 ### 1. Teilaufgabe: Koordinaten bestimmen
 
-- [ ] Funktion `updateLocation` erstellen
-  - [ ] Nach dem Laden automatisch aufrufen
-  - [ ] Auslesen der Position mit `findLocation`
-  - [ ] Koordinaten in die Formulare eintragen
-    - [ ] `latitude` und `longitude` Felder
-    - [ ] Koordinaten in `value`-Attribute schreiben
-    - [ ] Auch versteckte Eingabefelder berücksichtigen
+- [x] Funktion `updateLocation` erstellen
+  - [x] Nach dem Laden automatisch aufrufen
+  - [x] Auslesen der Position mit `findLocation`
+  - [x] Koordinaten in die Formulare eintragen
+    - [x] `latitude` und `longitude` Felder
+    - [x] Koordinaten in `value`-Attribute schreiben
+    - [x] Auch versteckte Eingabefelder berücksichtigen
 
 ### 2. Teilaufgabe: Karte darstellen
 
-- [ ] MapQuest API-Schlüssel besorgen und eintragen
-- [ ] `updateLocation`-Funktion ergänzen
-  - [ ] Funktion `getMapUrl` aufrufen
-  - [ ] URL im `src`-Attribut des Image Elements eintragen
+- [x] MapQuest API-Schlüssel besorgen und eintragen
+- [x] `updateLocation`-Funktion ergänzen
+  - [x] Funktion `getMapUrl` aufrufen
+  - [x] URL im `src`-Attribut des Image Elements eintragen
