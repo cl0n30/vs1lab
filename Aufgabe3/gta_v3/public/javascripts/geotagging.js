@@ -25,23 +25,27 @@ function updateLocation() {
         $("#discoveryLatitude").val(helper.latitude);
         $("#discoveryLongitude").val(helper.longitude);
 
-        let taglist = $("#mapView").data("tags");
-        
-        let mapManager = new MapManager("XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI");
-        let mapUrl = mapManager.getMapUrl(parseFloat(helper.latitude), parseFloat(helper.longitude), taglist, 14);
-
-        $("#mapView").attr("src", mapUrl);
+        displayMap(helper.latitude, helper.longitude);
     }
-    
-    LocationHelper.findLocation(setLocation);
+
+    let latitude = $("#tagLatitude").val();
+    let longitude = $("#tagLongitude").val();
+    if (!latitude || !longitude) {
+        console.log("update location");
+        LocationHelper.findLocation(setLocation);
+    } else {
+        displayMap(latitude, longitude);
+    }
+}
+
+function displayMap(latitude, longitude) {
+    let taglist = $("#mapView").data("tags");
+    let mapManager = new MapManager("XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI");
+    let mapUrl = mapManager.getMapUrl(parseFloat(latitude), parseFloat(longitude), taglist, 14);
+    $("#mapView").attr("src", mapUrl);
 }
 
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
-    let latitude = $("#tagLatitude").val();
-    let longitude = $("#tagLongitude").val();
-
-    if (!latitude || !longitude) {
-        updateLocation();
-    }
+    updateLocation();
 });
