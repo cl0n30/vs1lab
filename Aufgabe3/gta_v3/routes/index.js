@@ -46,10 +46,10 @@ var tagStore = new GeoTagStore();
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
     res.render('index', { 
-        taglist: tagStore.getNearbyGeoTags(),
+        taglist: [],
         latitude: "",
         longitude: "",
-        taglist_json: JSON.stringify(tagStore.getNearbyGeoTags())
+        taglist_json: ""
     })
 });
 
