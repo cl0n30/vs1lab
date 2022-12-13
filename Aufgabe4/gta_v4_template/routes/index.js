@@ -11,6 +11,7 @@
  */
 
 const express = require('express');
+const bodyparser = require('body-parser');
 const router = express.Router();
 
 /**
@@ -27,6 +28,10 @@ const GeoTag = require('../models/geotag');
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
 
+router.use(bodyparser.urlencoded({ extended: true }));
+
+var tagStore = new GeoTagStore();
+
 // App routes (A3)
 
 /**
@@ -39,7 +44,12 @@ const GeoTagStore = require('../models/geotag-store');
  */
 
 router.get('/', (req, res) => {
-  res.render('index', { taglist: [] })
+  res.render('index', { 
+    taglist: tagStore.getNearbyGeoTags(),
+    latitude: "",
+    longitude: "",
+    taglist_json: JSON.stringify(tagStore.getNearbyGeoTags())
+  });
 });
 
 // API routes (A4)
