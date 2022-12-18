@@ -27,7 +27,7 @@ const GeoTagExamples = require("./geotag-examples");
  * - Keyword matching should include partial matches from name or hashtag fields. 
  */
 class InMemoryGeoTagStore{
-    #geoTags = [];
+    #geoTags = new Map();
     #nearbyRadius = 500;
     #id = 1;
 
@@ -35,8 +35,7 @@ class InMemoryGeoTagStore{
         let exampleTags = GeoTagExamples.tagList;
         exampleTags.forEach((elem) => {
             let tag = new GeoTag(elem[0], elem[1], elem[2], elem[3]);
-            tag.id = this.#id;
-            this.#geoTags.push(tag);
+            this.#geoTags.set(this.#id, tag);
             this.#id++;
         });
     }
@@ -46,9 +45,9 @@ class InMemoryGeoTagStore{
      * @param {GeoTag} geoTag 
      */
     addGeoTag(geoTag) {
-        geoTag.id = this.#id;
-        this.#geoTags.push(geoTag);
-        this.#id++;
+        let newId = this.#id++;
+        this.#geoTags.set(newId, geoTag);
+        return newId;
     }
 
     /**
@@ -56,11 +55,20 @@ class InMemoryGeoTagStore{
      * @param {string} geoTag 
      */
     removeGeoTag(tagName) {
-        for (let i = 0; i < this.#geoTags.length; i++) {
-            if (this.#geoTags[i].name == tagName) {
-                this.#geoTags.splice(i, 1);
+        this.#geoTags.forEach((k, v) => {
+            if (v.name == tagName) {
+                this.#geoTags.delete(k);
             }
-        }
+        });
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @returns {GeoTag}
+     */
+    getGeoTagById(id) {
+        return this.#geoTags.get(id);
     }
 
     /**
@@ -71,7 +79,7 @@ class InMemoryGeoTagStore{
      */
     getNearbyGeoTags(latitude, longitude) {
         if (latitude == undefined || longitude == undefined) {
-            return this.#geoTags;
+            return [...this.#geoTags.values()];
         }
         //1 degree of latitude ~ 111111 m in y direction
         //1 degree of longitude ~ 111111 * cos(lat) m in x direction
@@ -84,15 +92,9 @@ class InMemoryGeoTagStore{
         let maxLon = parseFloat(longitude) + parseFloat(lonOffset);
         let minLon = parseFloat(longitude) - parseFloat(lonOffset);
 
-        let nearbyTags = [];
-        this.#geoTags.forEach((tag) => {
-            let isInRadius = (tag.latitude <= maxLat) && (tag.latitude >= minLat) 
-                && (tag.longitude <= maxLon) && (tag.longitude >= minLon);
-
-            if (isInRadius) {
-                nearbyTags.push(tag);
-            }
-        });
+        let nearbyTags = [...this.#geoTags.values()].filter(tag => 
+            (tag.latitude <= maxLat) && (tag.latitude >= minLat) 
+            && (tag.longitude <= maxLon) && (tag.longitude >= minLon));
         return nearbyTags;
     }
 
