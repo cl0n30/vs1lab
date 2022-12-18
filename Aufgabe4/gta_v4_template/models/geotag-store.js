@@ -58,6 +58,7 @@ class InMemoryGeoTagStore{
         this.#geoTags.forEach((k, v) => {
             if (v.name == tagName) {
                 this.#geoTags.delete(k);
+                return;
             }
         });
     }
