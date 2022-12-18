@@ -28,6 +28,7 @@ const GeoTag = require('../models/geotag');
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
 
+router.use(express.json());
 router.use(bodyparser.urlencoded({ extended: true }));
 
 var tagStore = new GeoTagStore();
@@ -44,12 +45,12 @@ var tagStore = new GeoTagStore();
  */
 
 router.get('/', (req, res) => {
-  res.render('index', { 
-    taglist: [],
-    latitude: "",
-    longitude: "",
-    taglist_json: ""
-  });
+    res.render('index', { 
+        taglist: [],
+        latitude: "",
+        longitude: "",
+        taglist_json: ""
+    });
 });
 
 // API routes (A4)
@@ -66,7 +67,10 @@ router.get('/', (req, res) => {
  * If 'latitude' and 'longitude' are available, it will be further filtered based on radius.
  */
 
-// TODO: ... your code here ...
+router.get('/api/geotags', (req, res) => {
+  ///api/geotags?searchterm=home&latitude=49.01&longitude=8.4
+  
+});
 
 
 /**
@@ -80,7 +84,9 @@ router.get('/', (req, res) => {
  * The new resource is rendered as JSON in the response.
  */
 
-// TODO: ... your code here ...
+router.post('/api/geotags', (req, res) => {
+
+});
 
 
 /**
@@ -93,7 +99,9 @@ router.get('/', (req, res) => {
  * The requested tag is rendered as JSON in the response.
  */
 
-// TODO: ... your code here ...
+router.get('/api/geotags/:id', (req, res) => {
+
+});
 
 
 /**
@@ -110,7 +118,9 @@ router.get('/', (req, res) => {
  * The updated resource is rendered as JSON in the response. 
  */
 
-// TODO: ... your code here ...
+router.put('/api/geotags/:id', (req, res) => {
+
+});
 
 
 /**
@@ -124,6 +134,8 @@ router.get('/', (req, res) => {
  * The deleted resource is rendered as JSON in the response.
  */
 
-// TODO: ... your code here ...
+router.delete('/api/geotags/:id', (req, res) => {
+
+});
 
 module.exports = router;
