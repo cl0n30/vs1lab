@@ -29,12 +29,15 @@ const GeoTagExamples = require("./geotag-examples");
 class InMemoryGeoTagStore{
     #geoTags = [];
     #nearbyRadius = 500;
+    #id = 1;
 
     constructor() {
         let exampleTags = GeoTagExamples.tagList;
         exampleTags.forEach((elem) => {
             let tag = new GeoTag(elem[0], elem[1], elem[2], elem[3]);
+            tag.id = this.#id;
             this.#geoTags.push(tag);
+            this.#id++;
         });
     }
 
@@ -43,7 +46,9 @@ class InMemoryGeoTagStore{
      * @param {GeoTag} geoTag 
      */
     addGeoTag(geoTag) {
+        geoTag.id = this.#id;
         this.#geoTags.push(geoTag);
+        this.#id++;
     }
 
     /**
