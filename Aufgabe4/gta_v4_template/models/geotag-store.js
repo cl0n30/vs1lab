@@ -69,7 +69,7 @@ class InMemoryGeoTagStore{
      * @returns {GeoTag}
      */
     getGeoTagById(id) {
-        return this.#geoTags.get(id);
+        return this.#geoTags.get(parseInt(id));
     }
 
     /**
