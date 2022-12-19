@@ -69,11 +69,7 @@ router.get('/', (req, res) => {
 
 router.get('/api/geotags', (req, res) => {
     ///api/geotags?searchterm=home&latitude=49.01&longitude=8.4
-    let results = tagStore.getNearbyGeoTags();
-    
-    if (req.query.latitude != undefined && req.query.longitude != undefined) {
-        results = tagStore.getNearbyGeoTags(req.query.latitude, req.query.longitude);
-    }
+    let results = tagStore.getNearbyGeoTags(req.query.latitude, req.query.longitude);
 
     if (req.query.searchterm) {
         results = results.filter(tag => tag.name.toLowerCase().includes(req.query.searchterm.toLowerCase()));
