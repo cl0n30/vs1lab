@@ -65,6 +65,26 @@ class InMemoryGeoTagStore{
 
     /**
      * 
+     * @param {number} id
+     * @param {GeoTag} geoTag 
+     */
+    updateGeotag(id, geoTag) {
+        this.#geoTags.set(parseInt(id), geoTag);
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @returns {GeoTag}
+     */
+    removeGeoTagById(id) {
+        let oldElement = this.getGeoTagById(id);
+        this.#geoTags.delete(parseInt(id));
+        return oldElement;
+    }
+
+    /**
+     * 
      * @param {number} id 
      * @returns {GeoTag}
      */
