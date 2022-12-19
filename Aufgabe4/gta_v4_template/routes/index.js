@@ -72,7 +72,11 @@ router.get('/api/geotags', (req, res) => {
     let results = tagStore.getNearbyGeoTags(req.query.latitude, req.query.longitude);
 
     if (req.query.searchterm) {
-        results = results.filter(tag => tag.name.toLowerCase().includes(req.query.searchterm.toLowerCase()));
+        results = tagStore.searchNearbyGeoTags(
+            req.query.latitude, 
+            req.query.longitude, 
+            decodeURIComponent(req.query.searchterm) //decode hastag symbol
+        );
     }
 
     res.json(results);
