@@ -74,8 +74,6 @@ class GeoTag {
 document.getElementById('tag-form').addEventListener('submit', submitTagForm);
 
 function submitTagForm(event) {
-    console.log('add tag');
-
     let name = document.getElementById("name").value;
     let lat = document.getElementById("tagLatitude").value;
     let long = document.getElementById("tagLongitude").value;
@@ -95,8 +93,6 @@ function submitTagForm(event) {
 document.getElementById("discoveryFilterForm").addEventListener("submit", submitDiscovery);
 
 function submitDiscovery(event) {
-    console.log("search");
-
     let searchterm = $("#searchterm").val();
     let latitude = $("#discoveryLatitude").val();
     let longitude = $("#discoveryLongitude").val();
@@ -111,5 +107,5 @@ function submitDiscovery(event) {
 }
 
 function updateTagList() {
-    t
+    
 }
