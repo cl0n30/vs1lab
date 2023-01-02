@@ -52,3 +52,64 @@ function displayMap(latitude, longitude) {
 document.addEventListener("DOMContentLoaded", () => {
     updateLocation();
 });
+
+
+class GeoTag {
+    /**
+     * 
+     * @param {string} name 
+     * @param {number} latitude 
+     * @param {number} longitude 
+     * @param {string} hashtag 
+     */
+    constructor(name, latitude, longitude, hashtag) {
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.hashtag = hashtag;
+    }
+    
+}
+
+document.getElementById('tag-form').addEventListener('submit', submitTagForm);
+
+function submitTagForm(event) {
+    console.log('add tag');
+
+    let name = document.getElementById("name").value;
+    let lat = document.getElementById("tagLatitude").value;
+    let long = document.getElementById("tagLongitude").value;
+    let hashtag = document.getElementById("hashtag").value;
+
+    let tag = new GeoTag(name,lat,long,hashtag);   
+
+    fetch("/api/geotags/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(tag)
+    });
+    updateLocation();
+    event.preventDefault();
+}
+
+document.getElementById("discoveryFilterForm").addEventListener("submit", submitDiscovery);
+
+function submitDiscovery(event) {
+    console.log("search");
+
+    let searchterm = $("#searchterm").val();
+    let latitude = $("#discoveryLatitude").val();
+    let longitude = $("#discoveryLongitude").val();
+
+    let url = `api/geotags?searchterm=${searchterm}&latitude=${latitude}&longitude=${longitude}`;
+
+    fetch(url, {
+        method: "GET",
+    });
+    updateLocation();
+    event.preventDefault();
+}
+
+function updateTagList() {
+    t
+}

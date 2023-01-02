@@ -67,6 +67,13 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.get('/api/geotags', (req, res) => {
+    let searchterm = req.query.searchterm;
+    let lat = req.query.latitude;
+    let long = req.query.longitude;
+    let tags = tagStore.searchNearbyGeoTags(lat,long,searchterm);
+    res.status(200).json(tags);
+});
 
 
 /**
@@ -81,6 +88,12 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.post('/api/geotags/', (req,res) => {
+  let newID = tagStore.addGeoTag(req.body);
+  let tag = tagStore.getGeoTagById(newID);
+  res.setHeader('Content-Location', `${req.url}/${newID}`);
+  res.status(201).json(tag);
+});
 
 
 /**
@@ -94,6 +107,14 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.get('/api/geotags/:id', (req, res) => {
+  if (!tagStore.getGeoTagById(req.params.id)) {
+    res.status(404).end();
+    return;
+  }
+  let tag = tagStore.getGeoTagById(req.params.id)
+  res.status(200).json(tag);
+});
 
 
 /**
@@ -111,6 +132,15 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.put('/api/geotags/:id', (req,res) => {
+  if (!tagStore.getGeoTagById(req.params.id)) {
+    res.status(404).end();
+    return;
+  }
+  tagStore.modifyGeoTag(req.params.id,req.body);
+  let tag = tagStore.getGeoTagById(req.params.id)
+  res.status(202).json(tag);
+});
 
 
 /**
@@ -125,5 +155,13 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.delete('/api/geotags/:id', (req,res) => {
+  if (!tagStore.getGeoTagById(req.params.id)) {
+    res.status(404).end();
+    return;
+  }
+  let tag = tagStore.removeGeoTagById(req.params.id);
+  res.status(202).json(tag);
+});
 
 module.exports = router;

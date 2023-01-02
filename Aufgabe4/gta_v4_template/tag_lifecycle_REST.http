@@ -1,0 +1,45 @@
+GET http://localhost:3000/api/geotags HTTP/1.1
+
+###
+
+POST http://localhost:3000/api/geotags HTTP/1.1
+content-type: application/json
+
+{
+    "name": "test",
+    "latitude": "1",
+    "longitude": "2",
+    "hashtag": "#t"
+}
+
+###
+
+GET http://localhost:3000/api/geotags/12 HTTP/1.1
+
+###
+
+PUT http://localhost:3000/api/geotags/12 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "updatetest",
+    "latitude": "49.00429",
+    "longitude": "8.39709",
+    "hashtag": "#ut"
+}
+
+###
+
+GET http://localhost:3000/api/geotags/12 HTTP/1.1
+
+###
+
+GET http://localhost:3000/api/geotags?searchterm=updatetest&latitude=49.00429&longitude=8.39709
+
+###
+
+DELETE http://localhost:3000/api/geotags/12 HTTP/1.1
+
+###
+
+GET http://localhost:3000/api/geotags/12 HTTP/1.1

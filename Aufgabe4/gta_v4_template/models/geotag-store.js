@@ -1,6 +1,7 @@
 // File origin: VS1LAB A3
 
 const GeoTag = require("./geotag");
+const { tagList } = require("./geotag-examples");
 const GeoTagExamples = require("./geotag-examples");
 
 /**
@@ -27,23 +28,39 @@ const GeoTagExamples = require("./geotag-examples");
  * - Keyword matching should include partial matches from name or hashtag fields. 
  */
 class InMemoryGeoTagStore{
-    #geoTags = [];
+    #geoTags = new Map();
     #nearbyRadius = 500;
+    #id = 1;
 
     constructor() {
         let exampleTags = GeoTagExamples.tagList;
         exampleTags.forEach((elem) => {
             let tag = new GeoTag(elem[0], elem[1], elem[2], elem[3]);
-            this.#geoTags.push(tag);
+            this.#geoTags.set(this.#id,tag);
+            this.#id++;
         });
     }
 
     /**
      * 
      * @param {GeoTag} geoTag 
+     * @return this
      */
     addGeoTag(geoTag) {
-        this.#geoTags.push(geoTag);
+        let oldID = this.#id;
+        this.#geoTags.set(oldID,geoTag);
+        this.#id++;
+        return oldID;
+    }
+
+    /**
+     * deletes tag with id and returns it.
+     * @param {string} geoTag 
+     */
+    removeGeoTagById(identifier) {
+        let tag = this.getGeoTagById(parseInt(identifier));
+        this.#geoTags.delete(parseInt(identifier));
+        return tag;
     }
 
     /**
@@ -57,6 +74,22 @@ class InMemoryGeoTagStore{
             }
         }
     }
+    /**
+     * 
+     * @param {*} identifier 
+     * @param {*} tag 
+     */
+    modifyGeoTag(identifier, tag) {
+        this.#geoTags.set(parseInt(identifier),tag);
+    }
+    /**
+     * 
+     * @param {*} identifier 
+     * @returns tag with the given identifier
+     */
+    getGeoTagById(identifier) {
+        return this.#geoTags.get(parseInt(identifier));
+    }
 
     /**
      * 
@@ -65,6 +98,8 @@ class InMemoryGeoTagStore{
      * @returns {Array<GeoTag>}
      */
     getNearbyGeoTags(latitude, longitude) {
+        console.log(latitude);
+        console.log(longitude);
         if (latitude == undefined || longitude == undefined) {
             return this.#geoTags;
         }
@@ -80,10 +115,11 @@ class InMemoryGeoTagStore{
         let minLon = parseFloat(longitude) - parseFloat(lonOffset);
 
         let nearbyTags = [];
-        this.#geoTags.forEach((tag) => {
+
+
+        this.#geoTags.forEach((tag, key) => {
             let isInRadius = (tag.latitude <= maxLat) && (tag.latitude >= minLat) 
                 && (tag.longitude <= maxLon) && (tag.longitude >= minLon);
-
             if (isInRadius) {
                 nearbyTags.push(tag);
             }
