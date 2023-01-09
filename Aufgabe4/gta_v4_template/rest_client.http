@@ -1,0 +1,37 @@
+GET http://localhost:3000/api/geotags
+
+###
+
+GET http://localhost:3000/api/geotags?searchterm=cast&latitude=49.013790&longitude=8.404435
+
+###
+
+POST http://localhost:3000/api/geotags
+Content-Type: application/json
+
+{
+    "name": "test",
+    "latitude": "49.014990",
+    "longitude": "8.390047",
+    "hashtag": "#test"
+}
+
+###
+
+GET http://localhost:3000/api/geotags/12
+
+###
+
+PUT http://localhost:3000/api/geotags/12
+Content-Type: application/json
+
+{
+    "name": "test2",
+    "latitude": "49.014990",
+    "longitude": "8.390047",
+    "hashtag": "#edit"
+}
+
+###
+
+DELETE http://localhost:3000/api/geotags/12

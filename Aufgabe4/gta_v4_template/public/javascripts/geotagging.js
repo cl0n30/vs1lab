@@ -10,52 +10,8 @@
 // Try to find this output in the browser...
 console.log("The geoTagging script is going to start...");
 
-/**
- * A function to retrieve the current location and update the page.
- * It is called once the page has been fully loaded.
- */
-function updateLocation() {
-    /**
-     * Sets the location from the helper in the corresponding html input fields
-     * @param {LocationHelper} helper
-     */
-    function setLocation(helper) {
-        $("#tagLatitude").val(helper.latitude);
-        $("#tagLongitude").val(helper.longitude);
-
-        $("#discoveryLatitude").val(helper.latitude);
-        $("#discoveryLongitude").val(helper.longitude);
-
-        displayMap(helper.latitude, helper.longitude);
-    }
-
-    let latitude = $("#tagLatitude").val();
-    let longitude = $("#tagLongitude").val();
-    if (!latitude || !longitude) {
-        console.log("update location");
-        LocationHelper.findLocation(setLocation);
-    } else {
-        displayMap(latitude, longitude);
-    }
-}
-
-function displayMap(latitude, longitude) {
-    let taglist = $("#mapView").data("tags");
-    if (!taglist) {
-        taglist = [];
-    }
-    let mapManager = new MapManager("XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI");
-    let mapUrl = mapManager.getMapUrl(parseFloat(latitude), parseFloat(longitude), taglist, 14);
-    $("#mapView").attr("src", mapUrl);
-}
-
-// Wait for the page to fully load its DOM content, then call updateLocation
-document.addEventListener("DOMContentLoaded", () => {
-    updateLocation();
-});
-
-
 class GeoTag {
+
     /**
      * 
      * @param {string} name 
@@ -72,44 +28,133 @@ class GeoTag {
     
 }
 
-document.getElementById('tag-form').addEventListener('submit', submitTagForm);
+/**
+ * A function to retrieve the current location and update the page.
+ * It is called once the page has been fully loaded.
+ */
+function updateLocation() {
+    /**
+     * Sets the location from the helper in the corresponding html input fields
+     * @param {LocationHelper} helper
+     */
+    function setLocation(helper) {
+        $("#tagLatitude").val(helper.latitude);
+        $("#tagLongitude").val(helper.longitude);
 
-function submitTagForm(event) {
+        $("#discoveryLatitude").val(helper.latitude);
+        $("#discoveryLongitude").val(helper.longitude);
+
+        displayMap($("#mapView").data("tags"), helper.latitude, helper.longitude);
+    }
+
+    let latitude = $("#tagLatitude").val();
+    let longitude = $("#tagLongitude").val();
+    if (!latitude || !longitude) {
+        console.log("update location");
+        LocationHelper.findLocation(setLocation);
+    } else {
+        displayMap($("#mapView").data("tags"), latitude, longitude);
+    }
+}
+
+function displayMap(taglist, latitude, longitude) {
+    if (!taglist) {
+        taglist = [];
+    }
+    let mapManager = new MapManager("XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI");
+    let mapUrl = mapManager.getMapUrl(parseFloat(latitude), parseFloat(longitude), taglist, 14);
+    $("#mapView").attr("src", mapUrl);
+}
+
+async function onTaggingFormSubmit() {
+    let latitude = document.getElementById("tagLatitude").value;
+    let longitude = document.getElementById("tagLongitude").value;
     let name = document.getElementById("name").value;
-    let lat = document.getElementById("tagLatitude").value;
-    let long = document.getElementById("tagLongitude").value;
     let hashtag = document.getElementById("hashtag").value;
+    let tag = new GeoTag(name, latitude, longitude, hashtag);
 
-    let tag = new GeoTag(name,lat,long,hashtag);   
-
-    fetch("/api/geotags/", {
+    let response = await fetch("http://localhost:3000/api/geotags", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(tag)
-    }).then((response) => response.json())
-    .then((data) => (data));
-    updateLocation();
-    event.preventDefault();
+    });
+
+    let url = `http://localhost:3000/api/geotags?latitude=${latitude}&longitude=${longitude}`;
+
+    response = await fetch(url);
+
+    document.getElementById("name").value = "";
+    document.getElementById("hashtag").value = "";
+
+    return await response.json();
 }
 
-document.getElementById("discoveryFilterForm").addEventListener("submit", submitDiscovery);
+async function onDiscoveryFormSubmit() {
+    let latitude = document.getElementById("discoveryLatitude").value;
+    let longitude = document.getElementById("discoveryLongitude").value;
+    let searchterm = document.getElementById("searchterm").value;
+    let url = "http://localhost:3000/api/geotags?";
 
-function submitDiscovery(event) {
-    let searchterm = $("#searchterm").val();
-    let latitude = $("#discoveryLatitude").val();
-    let longitude = $("#discoveryLongitude").val();
+    if (searchterm) {
+        url += `searchterm=${encodeURIComponent(searchterm)}&`; //encode hashtag symbol
+    }
 
-    let url = `api/geotags?searchterm=${searchterm}&latitude=${latitude}&longitude=${longitude}`;
-
-    fetch(url, {
-        method: "GET",
-    }).then((response) => {
-        let out = "";
-        response.json().array.forEach(tag => {
-            out.appe
-        });
-    })
-    .then(data => console.log(data));
-    updateLocation();
-    event.preventDefault();
+    if (latitude && longitude) {
+        url += `latitude=${latitude}&longitude=${longitude}`;
+    }
+    let response = await fetch(url);
+    return await response.json();
 }
+
+/**
+ * Adds a new geotag to the displayed list
+ * @param {GeoTag} tag 
+ */
+function addTagToList(tag) {
+    let tagList = document.getElementById("discoveryResults");
+    let li = document.createElement("li");
+    li.innerHTML = `${tag.name} (${tag.latitude},${tag.longitude}) ${tag.hashtag}`;
+    tagList.appendChild(li);
+}
+
+/**
+ * Replaces the displayed taglist with a new list consisting of the given tags
+ * @param {Array<GeoTag>} tags
+ */
+function updateTagList(tags) {
+    let tagList = document.getElementById("discoveryResults");
+    let listElements = [];
+    tags.map(tag => {
+        let li = document.createElement("li");
+        li.innerHTML = `${tag.name} (${tag.latitude},${tag.longitude}) ${tag.hashtag}`;
+        listElements.push(li);
+    });
+    tagList.replaceChildren(...listElements);
+
+    let latitude = document.getElementById("discoveryLatitude").value;
+    let longitude = document.getElementById("discoveryLongitude").value;
+    displayMap(tags, latitude, longitude);
+}
+
+// Wait for the page to fully load its DOM content, then call updateLocation
+document.addEventListener("DOMContentLoaded", () => {
+    updateLocation();
+
+    document.getElementById("tag-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        onTaggingFormSubmit()
+            .then(response => {
+                updateTagList(response);
+            })
+            .catch(err => alert(err));
+    });
+
+    document.getElementById("discoveryFilterForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        onDiscoveryFormSubmit()
+            .then(response => {
+                updateTagList(response);
+            })
+            .catch(err => alert(err));
+    });
+});

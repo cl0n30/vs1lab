@@ -28,6 +28,7 @@ const GeoTag = require('../models/geotag');
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
 
+router.use(express.json());
 router.use(bodyparser.urlencoded({ extended: true }));
 
 var tagStore = new GeoTagStore();
@@ -44,12 +45,12 @@ var tagStore = new GeoTagStore();
  */
 
 router.get('/', (req, res) => {
-  res.render('index', { 
-    taglist: [],
-    latitude: "",
-    longitude: "",
-    taglist_json: ""
-  });
+    res.render('index', { 
+        taglist: [],
+        latitude: "",
+        longitude: "",
+        taglist_json: ""
+    });
 });
 
 // API routes (A4)
@@ -66,13 +67,19 @@ router.get('/', (req, res) => {
  * If 'latitude' and 'longitude' are available, it will be further filtered based on radius.
  */
 
-// TODO: ... your code here ...
 router.get('/api/geotags', (req, res) => {
-    let searchterm = req.query.searchterm;
-    let lat = req.query.latitude;
-    let long = req.query.longitude;
-    let tags = tagStore.searchNearbyGeoTags(lat,long,searchterm);
-    res.status(200).json(tags);
+    ///api/geotags?searchterm=home&latitude=49.01&longitude=8.4
+    let results = tagStore.getNearbyGeoTags(req.query.latitude, req.query.longitude);
+
+    if (req.query.searchterm) {
+        results = tagStore.searchNearbyGeoTags(
+            req.query.latitude, 
+            req.query.longitude, 
+            decodeURIComponent(req.query.searchterm) //decode hastag symbol
+        );
+    }
+
+    res.json(results);
 });
 
 
@@ -87,12 +94,10 @@ router.get('/api/geotags', (req, res) => {
  * The new resource is rendered as JSON in the response.
  */
 
-// TODO: ... your code here ...
-router.post('/api/geotags/', (req,res) => {
-  let newID = tagStore.addGeoTag(req.body);
-  let tag = tagStore.getGeoTagById(newID);
-  res.setHeader('Content-Location', `${req.url}/${newID}`);
-  res.status(201).json(tag);
+router.post('/api/geotags', (req, res) => {
+    let newId = tagStore.addGeoTag(req.body);
+    res.setHeader("Content-Location", `${req.url}/${newId}`);
+    res.status(201).json(tagStore.getGeoTagById(newId));
 });
 
 
@@ -106,14 +111,13 @@ router.post('/api/geotags/', (req,res) => {
  * The requested tag is rendered as JSON in the response.
  */
 
-// TODO: ... your code here ...
 router.get('/api/geotags/:id', (req, res) => {
-  if (!tagStore.getGeoTagById(req.params.id)) {
-    res.status(404).end();
-    return;
-  }
-  let tag = tagStore.getGeoTagById(req.params.id)
-  res.status(200).json(tag);
+    let id = req.params.id;
+    if (!tagStore.getGeoTagById(id)) {
+        res.status(404).end();
+    } else {
+        res.json(tagStore.getGeoTagById(id));
+    }
 });
 
 
@@ -131,15 +135,14 @@ router.get('/api/geotags/:id', (req, res) => {
  * The updated resource is rendered as JSON in the response. 
  */
 
-// TODO: ... your code here ...
-router.put('/api/geotags/:id', (req,res) => {
-  if (!tagStore.getGeoTagById(req.params.id)) {
-    res.status(404).end();
-    return;
-  }
-  tagStore.modifyGeoTag(req.params.id,req.body);
-  let tag = tagStore.getGeoTagById(req.params.id)
-  res.status(202).json(tag);
+router.put('/api/geotags/:id', (req, res) => {
+    let id = req.params.id;
+    if (!tagStore.getGeoTagById(id)) {
+        res.status(404).end();
+    } else {
+        tagStore.updateGeotag(id, req.body);
+        res.status(202).json(tagStore.getGeoTagById(id));
+    } 
 });
 
 
@@ -154,14 +157,14 @@ router.put('/api/geotags/:id', (req,res) => {
  * The deleted resource is rendered as JSON in the response.
  */
 
-// TODO: ... your code here ...
-router.delete('/api/geotags/:id', (req,res) => {
-  if (!tagStore.getGeoTagById(req.params.id)) {
-    res.status(404).end();
-    return;
-  }
-  let tag = tagStore.removeGeoTagById(req.params.id);
-  res.status(202).json(tag);
+router.delete('/api/geotags/:id', (req, res) => {
+    let id = req.params.id;
+    let oldTag = tagStore.removeGeoTagById(req.params.id);
+    if (!oldTag) {
+        res.status(404).end();
+    } else {
+        res.json(oldTag);
+    }
 });
 
 module.exports = router;
