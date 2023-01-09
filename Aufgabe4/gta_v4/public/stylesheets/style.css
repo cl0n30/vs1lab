@@ -1,0 +1,280 @@
+/*
+  File origin: VS1LAB A1b  
+
+  CSS style is BEM. Classes used for CSS, IDs for JavaScript querying (future use).
+  CSS variables used for clarity and themability (e.g. through SSR). 
+  Inherited box sizing used for ease of including 3rd party content-box components.
+*/
+
+/* Global styling */
+
+html {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+
+  /* This approach prevents issues with 3rd party content-box components */
+  box-sizing: inherit;
+}
+
+
+/* Variables (example: see declaration for "a" below) */
+
+:root {
+  --link-color: #00B7FF;
+  --background-color: #efefef;
+  --border-color: #cdcdcd;
+  --gray-color: #666;
+}
+
+
+/* HTML element styles */
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--link-color);
+}
+
+/* ### TODO ### Styles for other HTML elements */
+
+legend {
+  margin: 2ex;
+}
+
+
+/* Grid styles (no changes required) */
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.col-1 {
+  width: calc(8.33% - 1rem);
+}
+
+.col-2 {
+  width: calc(16.66% - 1rem);
+}
+
+.col-3 {
+  width: calc(25% - 1rem);
+}
+
+.col-4 {
+  width: calc(33.33% - 1rem);
+}
+
+.col-5 {
+  width: calc(41.66% - 1rem);
+}
+
+.col-6 {
+  width: calc(50% - 1rem);
+}
+
+.col-7 {
+  width: calc(58.33% - 1rem);
+}
+
+.col-8 {
+  width: calc(66.66% - 1rem);
+}
+
+.col-9 {
+  width: calc(75% - 1rem);
+}
+
+.col-10 {
+  width: calc(83.33% - 1rem);
+}
+
+.col-11 {
+  width: calc(91.66% - 1rem);
+}
+
+.col-12 {
+  width: calc(100% - 1rem);
+}
+
+
+/* ### TODO ### Styles for Header Component */
+
+.header {
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 5ex;
+  padding-bottom: 5ex;
+}
+
+h1.header__title {
+  font-size : 8ex;
+}
+
+img.header__image {
+  height: 8ex;
+}
+
+
+/* ### TODO ### Styles for Main Component */
+
+.main {
+  display: flex;
+  justify-content:space-between;
+}
+
+/* ### TODO ### Styles for Tagging component */
+
+.main h2 {
+  margin-top: 5ex;
+  margin-left: 2ex;
+}
+
+#tag-form{
+  margin: 3ex;
+ }
+
+ #tagSet{
+  padding-block-start: 3ex;
+}
+
+#tag-form label {
+  color: var(--gray-color);
+  padding: 2ex;
+}
+
+#tag-form input {
+  display: flex;
+  flex-direction: column;
+  height: 5ex;
+  padding: 2ex;
+  margin: 2ex;
+}
+
+#addTag {
+  line-height: 1ex;
+}
+
+/* ### TODO ### Styles for Discovery component */
+
+div.discovery__wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+}
+
+#discoverySet{
+  padding-block-start: 3ex;
+}
+
+div.discovery__taglist li {
+  display: flex;
+  flex-direction: column;
+  color: var(--link-color);
+  background-color: var(--background-color);
+  border: solid;
+  border-color: var(--border-color);
+  padding: 2ex;
+  margin: 3ex;
+}
+
+div.discovery__map {
+  display: flex;
+  flex-direction:  column;
+  margin: 3ex;
+}
+
+form.discovery__search {
+  margin: 3ex;
+}
+
+form.discovery__search input {
+  display: flex;
+  flex-direction: column;
+  height: 5ex;
+  padding: 2ex;
+  margin: 2ex;
+}
+
+form.discovery__search label {
+  color: var(--gray-color);
+  padding: 2ex;
+}
+
+#search {
+  line-height: 1ex;
+}
+
+/* ### TODO ### Styles for Footer Component */
+
+footer {
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 1ex;
+  padding-bottom: 1ex;
+}
+
+#footer_title {
+  margin: 25px;
+}
+
+
+/* ### TODO ### Media Queries */
+
+@media only screen and (max-width: 850px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  div.discovery__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    align-items: center;
+    padding-top: 5ex;
+    padding-bottom: 5ex;
+  }
+
+  h1.header__title {
+    font-size : 5ex;
+    padding-top: 1ex;
+    padding-bottom: 1ex;
+  }
+  
+  img.header__image {
+    height: 5ex;
+  }
+
+  .tagging {
+    width: 100%;
+  }
+
+  .discovery {
+    width: 100%;
+  }
+
+  .discovery input {
+    width: calc(83.33% - 1rem);
+  }
+}
