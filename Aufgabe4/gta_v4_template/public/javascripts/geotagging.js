@@ -118,9 +118,9 @@ function addTagToList(tag) {
 
 /**
  * Replaces the displayed taglist with a new list consisting of the given tags
- * @param {Array<GeoTag>} tags 
+ * @param {Array<GeoTag>} tags
  */
-function displayNewTagList(tags) {
+function updateTagList(tags) {
     let tagList = document.getElementById("discoveryResults");
     let listElements = [];
     tags.forEach(tag => {
@@ -129,6 +129,10 @@ function displayNewTagList(tags) {
         listElements.push(li);
     });
     tagList.replaceChildren(...listElements);
+    
+    let latitude = document.getElementById("discoveryLatitude").value;
+    let longitude = document.getElementById("discoveryLongitude").value;
+    displayMap(tags, latitude, longitude);
 }
 
 // Wait for the page to fully load its DOM content, then call updateLocation
@@ -138,14 +142,18 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("tag-form").addEventListener("submit", (event) => {
         event.preventDefault();
         onTaggingFormSubmit()
-            .then(response => addTagToList(response))
+            .then(response => {
+                updateTagList(response);
+            })
             .catch(err => alert(err));
     });
 
     document.getElementById("discoveryFilterForm").addEventListener("submit", (event) => {
         event.preventDefault();
         onDiscoveryFormSubmit()
-            .then(response => displayNewTagList(response))
+            .then(response => {
+                updateTagList(response);
+            })
             .catch(err => alert(err));
     });
 });
