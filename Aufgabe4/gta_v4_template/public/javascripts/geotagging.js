@@ -73,11 +73,15 @@ async function onTaggingFormSubmit() {
     let hashtag = document.getElementById("hashtag").value;
     let tag = new GeoTag(name, latitude, longitude, hashtag);
 
-    let response =  await fetch("http://localhost:3000/api/geotags", {
+    let response = await fetch("http://localhost:3000/api/geotags", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(tag)
     });
+
+    let url = `http://localhost:3000/api/geotags?latitude=${latitude}&longitude=${longitude}`;
+
+    response = await fetch(url);
 
     document.getElementById("name").value = "";
     document.getElementById("hashtag").value = "";
