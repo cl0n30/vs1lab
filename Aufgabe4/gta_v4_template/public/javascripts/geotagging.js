@@ -123,13 +123,13 @@ function addTagToList(tag) {
 function updateTagList(tags) {
     let tagList = document.getElementById("discoveryResults");
     let listElements = [];
-    tags.forEach(tag => {
+    tags.map(tag => {
         let li = document.createElement("li");
         li.innerHTML = `${tag.name} (${tag.latitude},${tag.longitude}) ${tag.hashtag}`;
         listElements.push(li);
     });
     tagList.replaceChildren(...listElements);
-    
+
     let latitude = document.getElementById("discoveryLatitude").value;
     let longitude = document.getElementById("discoveryLongitude").value;
     displayMap(tags, latitude, longitude);
