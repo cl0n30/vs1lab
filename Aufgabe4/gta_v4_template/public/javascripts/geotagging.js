@@ -43,7 +43,7 @@ function updateLocation() {
         $("#discoveryLatitude").val(helper.latitude);
         $("#discoveryLongitude").val(helper.longitude);
 
-        displayMap(helper.latitude, helper.longitude);
+        displayMap($("#mapView").data("tags"), helper.latitude, helper.longitude);
     }
 
     let latitude = $("#tagLatitude").val();
@@ -52,12 +52,11 @@ function updateLocation() {
         console.log("update location");
         LocationHelper.findLocation(setLocation);
     } else {
-        displayMap(latitude, longitude);
+        displayMap($("#mapView").data("tags"), latitude, longitude);
     }
 }
 
-function displayMap(latitude, longitude) {
-    let taglist = $("#mapView").data("tags");
+function displayMap(taglist, latitude, longitude) {
     if (!taglist) {
         taglist = [];
     }
