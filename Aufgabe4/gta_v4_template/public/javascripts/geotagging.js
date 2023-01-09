@@ -1,5 +1,6 @@
 // File origin: VS1LAB A2
 
+
 /* eslint-disable no-unused-vars */
 
 // This script is executed when the browser loads index.html.
@@ -85,7 +86,8 @@ function submitTagForm(event) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(tag)
-    });
+    }).then((response) => response.json())
+    .then((data) => (data));
     updateLocation();
     event.preventDefault();
 }
@@ -101,11 +103,13 @@ function submitDiscovery(event) {
 
     fetch(url, {
         method: "GET",
-    });
+    }).then((response) => {
+        let out = "";
+        response.json().array.forEach(tag => {
+            out.appe
+        });
+    })
+    .then(data => console.log(data));
     updateLocation();
     event.preventDefault();
-}
-
-function updateTagList() {
-    
 }
