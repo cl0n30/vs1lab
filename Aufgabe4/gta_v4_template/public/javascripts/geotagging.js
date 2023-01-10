@@ -106,17 +106,6 @@ async function onDiscoveryFormSubmit() {
 }
 
 /**
- * Adds a new geotag to the displayed list
- * @param {GeoTag} tag 
- */
-function addTagToList(tag) {
-    let tagList = document.getElementById("discoveryResults");
-    let li = document.createElement("li");
-    li.innerHTML = `${tag.name} (${tag.latitude},${tag.longitude}) ${tag.hashtag}`;
-    tagList.appendChild(li);
-}
-
-/**
  * Replaces the displayed taglist with a new list consisting of the given tags
  * @param {Array<GeoTag>} tags
  */
