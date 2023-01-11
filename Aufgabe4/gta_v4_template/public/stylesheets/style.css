@@ -180,6 +180,10 @@ div.discovery__wrapper {
   padding-block-start: 3ex;
 }
 
+.discovery__taglist {
+  margin-bottom: 3ex;
+}
+
 div.discovery__taglist li {
   display: flex;
   flex-direction: column;
@@ -189,6 +193,21 @@ div.discovery__taglist li {
   border-color: var(--border-color);
   padding: 2ex;
   margin: 3ex;
+}
+
+div.discovery__page {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex: 1;
+}
+
+div.discovery__page button {
+  padding: 1ex;
+}
+
+div.discovery__page span {
+  padding: 1ex;
 }
 
 div.discovery__map {
