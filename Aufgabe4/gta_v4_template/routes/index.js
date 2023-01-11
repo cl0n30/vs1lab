@@ -32,6 +32,7 @@ router.use(express.json());
 router.use(bodyparser.urlencoded({ extended: true }));
 
 var tagStore = new GeoTagStore();
+var entriesPerPage = 5;
 
 // App routes (A3)
 
@@ -68,7 +69,7 @@ router.get('/', (req, res) => {
  */
 
 router.get('/api/geotags', (req, res) => {
-    ///api/geotags?searchterm=home&latitude=49.01&longitude=8.4
+    ///api/geotags?searchterm=home&latitude=49.01&longitude=8.4&page=1
     let results = tagStore.getNearbyGeoTags(req.query.latitude, req.query.longitude);
 
     if (req.query.searchterm) {
@@ -78,6 +79,17 @@ router.get('/api/geotags', (req, res) => {
             decodeURIComponent(req.query.searchterm) //decode hastag symbol
         );
     }
+    let tagsAmount = results.length;
+
+    let page = 1;
+    if (req.query.page) {
+        page = req.query.page;
+    }
+    let start = page * entriesPerPage - entriesPerPage;
+    let end = page * entriesPerPage;
+    results = results.slice(start, end);
+
+    results.push({amount: tagsAmount});
 
     res.json(results);
 });
