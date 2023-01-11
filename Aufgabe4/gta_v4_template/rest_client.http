@@ -2,6 +2,14 @@ GET http://localhost:3000/api/geotags
 
 ###
 
+GET http://localhost:3000/api/geotags?page=3
+
+###
+
+GET http://localhost:3000/api/geotags?latitude=49.014993&longitude=8.390049&page=2
+
+###
+
 GET http://localhost:3000/api/geotags?searchterm=cast&latitude=49.013790&longitude=8.404435
 
 ###
