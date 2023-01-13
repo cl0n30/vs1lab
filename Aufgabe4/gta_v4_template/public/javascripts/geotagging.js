@@ -144,6 +144,8 @@ function updateTagList(tags) {
     });
     tagList.replaceChildren(...listElements);
     document.getElementById("pages").innerHTML = [`${page}/${maxPages} (${size})`];
+    document.getElementById("back_button").innerHTML = ["<"];
+    document.getElementById("forward_button").innerHTML = [">"];
 
     let latitude = document.getElementById("discoveryLatitude").value;
     let longitude = document.getElementById("discoveryLongitude").value;
@@ -154,35 +156,48 @@ function updateTagList(tags) {
 document.addEventListener("DOMContentLoaded", () => {
     updateLocation();
     document.getElementById("back_button").disabled = true;
+    document.getElementById("forward_button").disabled = true;
 
     document.getElementById("tag-form").addEventListener("submit", (event) => {
         event.preventDefault();
         onTaggingFormSubmit()
             .then(response => {
+                page = 1;
                 size = parseInt(response[0].size);
                 maxPages = parseInt(response[0].pages);
                 updateTagList(response[1]);
             })
             .catch(err => alert(err));
         document.getElementById("back_button").disabled = true;    
+        if (maxPages == 1 || size == 0) {
+            document.getElementById("forward_button").disabled = true;
+        } else {
+            document.getElementById("forward_button").disabled = false;
+        }
     });
 
     document.getElementById("discoveryFilterForm").addEventListener("submit", (event) => {
         event.preventDefault();
         onDiscoveryFormSubmit()
             .then(response => {
+                page = 1;
                 size = parseInt(response[0].size);
                 maxPages = parseInt(response[0].pages);
                 updateTagList(response[1]);
             })
             .catch(err => alert(err));
         document.getElementById("back_button").disabled = true;    
+        if (maxPages == 1 || size == 0) {
+            document.getElementById("forward_button").disabled = true;
+        } else {
+            document.getElementById("forward_button").disabled = false;
+        }
     });
 
     document.getElementById("back_button").addEventListener("click", (event) => {
         console.log("back");
         loadPreviousPage().then(response => {
-            updateTagList(response);
+            updateTagList(response[1]);
         })
         .catch(err => alert(err));
 
@@ -198,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("forward_button").addEventListener("click", (event) => {
         console.log("forward");
         loadNextPage().then(response => {
-            updateTagList(response);
+            updateTagList(response[1]);
         })
         .catch(err => alert(err));
         page++;
@@ -213,11 +228,18 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function loadPreviousPage() {
+    let url = latestURL;
+    url += `&page=${page - 1}`; 
     
-    
+    let response = await fetch(url);
+    return await response.json();
 }
     
 
 async function loadNextPage() {
+    let url = latestURL;
+    url += `&page=${page + 1}`; 
     
+    let response = await fetch(url);
+    return await response.json();
 }

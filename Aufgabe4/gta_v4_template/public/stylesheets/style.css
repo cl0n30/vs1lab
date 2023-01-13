@@ -197,6 +197,10 @@ div.discovery__map {
   margin: 3ex;
 }
 
+div.paging__widget {
+  margin: 3ex;
+}
+
 form.discovery__search {
   margin: 3ex;
 }
