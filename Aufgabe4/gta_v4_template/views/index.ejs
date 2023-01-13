@@ -80,8 +80,14 @@
                             <li><%= gtag.name %> (<%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
                         <% }); %>
                     </ul>
+                
+                    <div class="paging__widget">
+                        <button id="back_button" name="back"><</button>
+                        <span id="pages" name="pages"></span>
+                        <button id="forward_button" name="forward">></button>
+                    </div>
                 </div>
-
+                
                 <div class="discovery__map">
                     <img src="./images/mapview.jpg" alt="a map with locations" id="mapView" data-tags="<%= taglist_json %>"/>
                     <span>Result map</span>

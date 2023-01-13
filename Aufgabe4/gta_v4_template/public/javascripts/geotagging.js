@@ -28,6 +28,11 @@ class GeoTag {
     
 }
 
+let page = 1;
+let latestURL = "";
+let size = 0;
+let maxPages = 0;
+
 /**
  * A function to retrieve the current location and update the page.
  * It is called once the page has been fully loaded.
@@ -78,8 +83,12 @@ async function onTaggingFormSubmit() {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(tag)
     });
-
+    
+    page = 1;
     let url = `http://localhost:3000/api/geotags?latitude=${latitude}&longitude=${longitude}`;
+    latestURL = url;
+
+    url += "&page=1";
 
     response = await fetch(url);
 
@@ -102,6 +111,10 @@ async function onDiscoveryFormSubmit() {
     if (latitude && longitude) {
         url += `latitude=${latitude}&longitude=${longitude}`;
     }
+
+    latestURL = url;
+    url += `&page=1`; 
+    
     let response = await fetch(url);
     return await response.json();
 }
@@ -130,6 +143,7 @@ function updateTagList(tags) {
         listElements.push(li);
     });
     tagList.replaceChildren(...listElements);
+    document.getElementById("pages").innerHTML = [`${page}/${maxPages} (${size})`];
 
     let latitude = document.getElementById("discoveryLatitude").value;
     let longitude = document.getElementById("discoveryLongitude").value;
@@ -139,22 +153,71 @@ function updateTagList(tags) {
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
     updateLocation();
+    document.getElementById("back_button").disabled = true;
 
     document.getElementById("tag-form").addEventListener("submit", (event) => {
         event.preventDefault();
         onTaggingFormSubmit()
             .then(response => {
-                updateTagList(response);
+                size = parseInt(response[0].size);
+                maxPages = parseInt(response[0].pages);
+                updateTagList(response[1]);
             })
             .catch(err => alert(err));
+        document.getElementById("back_button").disabled = true;    
     });
 
     document.getElementById("discoveryFilterForm").addEventListener("submit", (event) => {
         event.preventDefault();
         onDiscoveryFormSubmit()
             .then(response => {
-                updateTagList(response);
+                size = parseInt(response[0].size);
+                maxPages = parseInt(response[0].pages);
+                updateTagList(response[1]);
             })
             .catch(err => alert(err));
+        document.getElementById("back_button").disabled = true;    
     });
+
+    document.getElementById("back_button").addEventListener("click", (event) => {
+        console.log("back");
+        loadPreviousPage().then(response => {
+            updateTagList(response);
+        })
+        .catch(err => alert(err));
+
+        page--;
+        if (page == 1) {
+            document.getElementById("back_button").disabled = true;
+        } else {
+            document.getElementById("back_button").disabled = false;
+        }
+        document.getElementById("forward_button").disabled = false;
+    });
+
+    document.getElementById("forward_button").addEventListener("click", (event) => {
+        console.log("forward");
+        loadNextPage().then(response => {
+            updateTagList(response);
+        })
+        .catch(err => alert(err));
+        page++;
+        if (page == maxPages) {
+            document.getElementById("forward_button").disabled = true;
+        } else {
+            document.getElementById("forward_button").disabled = false;
+        }
+        document.getElementById("back_button").disabled = false;
+    });
+
 });
+
+async function loadPreviousPage() {
+    
+    
+}
+    
+
+async function loadNextPage() {
+    
+}

@@ -136,10 +136,10 @@ Zur Übersicht folgen noch mal alle Anforderungen in kompakter Form als Checklis
 - [x] **AJAX-Aufrufe** per **Fetch API** hinzufügen
   - [x] Aufruf im **Tagging Formular** *asynchron*
     - [x] *HTTP POST* mit Body in *JSON Format*
-  - [ x Aufruf im **Discovery Formular** *asynchron*
+  - [x] Aufruf im **Discovery Formular** *asynchron*
     - [x] *HTTP GET* mit *Query Parametern* 
-- [ ] **Anzeigeaktualisierung** realisieren
-  - [ ] **Ergebnisliste** aktualisieren
+- [x] **Anzeigeaktualisierung** realisieren
+  - [x] **Ergebnisliste** aktualisieren
   - [x] **Karte** aktualisieren
 
 ### Zusatzaufgabe: Pagination

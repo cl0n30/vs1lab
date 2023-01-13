@@ -31,12 +31,14 @@ class InMemoryGeoTagStore{
     #geoTags = new Map();
     #nearbyRadius = 500;
     #id = 1;
+    #current = [];
 
     constructor() {
         let exampleTags = GeoTagExamples.tagList;
         exampleTags.forEach((elem) => {
             let tag = new GeoTag(elem[0], elem[1], elem[2], elem[3]);
             this.#geoTags.set(this.#id, tag);
+            this.#current[this.#id - 1] = tag;
             this.#id++;
         });
     }
@@ -49,6 +51,7 @@ class InMemoryGeoTagStore{
     addGeoTag(geoTag) {
         let newId = this.#id++;
         this.#geoTags.set(newId, geoTag);
+        this.#current = [...this.#geoTags.values()]
         return newId;
     }
 
@@ -63,6 +66,7 @@ class InMemoryGeoTagStore{
                 return;
             }
         });
+        this.#current = [...this.#geoTags.values()]
     }
 
     /**
@@ -72,6 +76,7 @@ class InMemoryGeoTagStore{
      */
     updateGeotag(id, geoTag) {
         this.#geoTags.set(parseInt(id), geoTag);
+        this.#current = [...this.#geoTags.values()]
     }
 
     /**
@@ -82,6 +87,7 @@ class InMemoryGeoTagStore{
     removeGeoTagById(id) {
         let oldElement = this.getGeoTagById(id);
         this.#geoTags.delete(parseInt(id));
+        this.#current = [...this.#geoTags.values()]
         return oldElement;
     }
 
@@ -93,22 +99,6 @@ class InMemoryGeoTagStore{
     getGeoTagById(id) {
         return this.#geoTags.get(parseInt(id));
     }
-    /**
-     * 
-     * @param {*} identifier 
-     * @param {*} tag 
-     */
-    modifyGeoTag(identifier, tag) {
-        this.#geoTags.set(parseInt(identifier),tag);
-    }
-    /**
-     * 
-     * @param {*} identifier 
-     * @returns tag with the given identifier
-     */
-    getGeoTagById(identifier) {
-        return this.#geoTags.get(parseInt(identifier));
-    }
 
     /**
      * 
@@ -117,10 +107,8 @@ class InMemoryGeoTagStore{
      * @returns {Array<GeoTag>}
      */
     getNearbyGeoTags(latitude, longitude) {
-        console.log(latitude);
-        console.log(longitude);
         if (latitude == undefined || longitude == undefined) {
-            return [...this.#geoTags.values()];
+            this.#current = [...this.#geoTags.values()];
         }
         //1 degree of latitude ~ 111111 m in y direction
         //1 degree of longitude ~ 111111 * cos(lat) m in x direction
@@ -133,10 +121,9 @@ class InMemoryGeoTagStore{
         let maxLon = parseFloat(longitude) + parseFloat(lonOffset);
         let minLon = parseFloat(longitude) - parseFloat(lonOffset);
 
-        let nearbyTags = [...this.#geoTags.values()].filter(tag => 
+        this.#current = [...this.#geoTags.values()].filter(tag => 
             (tag.latitude <= maxLat) && (tag.latitude >= minLat) 
-            && (tag.longitude <= maxLon) && (tag.longitude >= minLon));
-        return nearbyTags;
+            && (tag.longitude <= maxLon) && (tag.longitude >= minLon));             
     }
 
     /**
@@ -144,17 +131,42 @@ class InMemoryGeoTagStore{
      * @param {number} latitude 
      * @param {number} longitude 
      * @param {string} query 
-     * @returns {Array<GeoTag>}
      */
-    searchNearbyGeoTags(latitude, longitude, query) {
-        let nearbyTags = this.getNearbyGeoTags(latitude, longitude);
-        if (nearbyTags.length == 0) {
-            return [];
-        }
+    searchNearbyGeoTags(latitude, longitude, query) { 
+        this.getNearbyGeoTags(latitude, longitude);
+        let nearbyTags = this.#current;
+        
+        this.#current = nearbyTags.filter(tag => tag.name.toLowerCase().includes(query.toLowerCase()) 
+                        || tag.hashtag.toLowerCase().includes(query.toLowerCase()));
+    }
 
-        let foundTags = nearbyTags.filter(tag => tag.name.toLowerCase().includes(query.toLowerCase()) 
-            || tag.hashtag.toLowerCase().includes(query.toLowerCase()));
-        return foundTags;
+    /**
+     * 
+     * @param {number} page 
+     * @param {number} pagelength 
+     */
+    getCurrent(page, pagelength) {
+        if (this.#current.length < (page - 1) * pagelength || page < 1) {
+            console.error("not enough error");
+        }
+        let tags = [];
+        for (let i = 0; i < pagelength; i++) {
+            if (this.#current[i + (page - 1) * pagelength]) {
+                tags[i] = this.#current[i + (page - 1) * pagelength];
+            }
+        }
+        return tags;
+    }
+
+    getCurrentSize() {
+        return this.#current.length;
+    }
+
+    getCurrentPages(pagelength) {
+        if (this.#current.length % pagelength == 0) {
+            return this.#current.length / pagelength;
+        }
+        return (this.#current.length / pagelength + 1);
     }
 
 }

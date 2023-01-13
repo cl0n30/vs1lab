@@ -69,17 +69,27 @@ router.get('/', (req, res) => {
 
 router.get('/api/geotags', (req, res) => {
     ///api/geotags?searchterm=home&latitude=49.01&longitude=8.4
-    let results = tagStore.getNearbyGeoTags(req.query.latitude, req.query.longitude);
-
+    //tagStore.getNearbyGeoTags(req.query.latitude, req.query.longitude);
+    
     if (req.query.searchterm) {
-        results = tagStore.searchNearbyGeoTags(
+        tagStore.searchNearbyGeoTags(
             req.query.latitude, 
             req.query.longitude, 
             decodeURIComponent(req.query.searchterm) //decode hastag symbol
         );
+    } else {
+        tagStore.getNearbyGeoTags(req.query.latitude, req.query.longitude);
     }
 
-    res.json(results);
+    let resJSON = [{
+        "size" : `${tagStore.getCurrentSize()}`, 
+        "pages" : `${tagStore.getCurrentPages(5)}`
+    }];
+
+    let results = tagStore.getCurrent(parseInt(req.query.page),5);
+    resJSON.push(results);
+
+    res.json(resJSON);
 });
 
 
@@ -166,5 +176,6 @@ router.delete('/api/geotags/:id', (req, res) => {
         res.json(oldTag);
     }
 });
+
 
 module.exports = router;

@@ -30,7 +30,7 @@ GET http://localhost:3000/api/geotags/12 HTTP/1.1
 
 ###
 
-GET http://localhost:3000/api/geotags?searchterm=updatetest&latitude=49.00429&longitude=8.39709
+GET http://localhost:3000/api/geotags?searchterm=updatetest&latitude=49.00429&longitude=8.39709&page=1
 
 ###
 
