@@ -40,6 +40,9 @@ function updateLocation() {
 
 function displayMap(latitude, longitude) {
     let taglist = $("#mapView").data("tags");
+    if (!taglist) {
+        taglist = [];
+    }
     let mapManager = new MapManager("XtGxyGSmhZBkIbmGSOfBIoQ0Akq4OoUI");
     let mapUrl = mapManager.getMapUrl(parseFloat(latitude), parseFloat(longitude), taglist, 14);
     $("#mapView").attr("src", mapUrl);
