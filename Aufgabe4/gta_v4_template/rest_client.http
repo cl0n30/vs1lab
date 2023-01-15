@@ -35,3 +35,12 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3000/api/geotags/12
+
+
+### Paging
+
+GET http://localhost:3000/api/geotags?page=1
+
+###
+
+GET http://localhost:3000/api/geotags?page=2&numperpage=3

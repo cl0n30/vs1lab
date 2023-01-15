@@ -92,15 +92,26 @@ async function onDiscoveryFormSubmit() {
     let latitude = document.getElementById("discoveryLatitude").value;
     let longitude = document.getElementById("discoveryLongitude").value;
     let searchterm = document.getElementById("searchterm").value;
+    let numperpage= 5;  //TODO
+    let page = document.getElementById("currpage").value;
     let url = "http://localhost:3000/api/geotags?";
 
     if (searchterm) {
-        url += `searchterm=${encodeURIComponent(searchterm)}&`; //encode hashtag symbol
+        url += `searchterm=${encodeURIComponent(searchterm)}`; //encode hashtag symbol
     }
 
     if (latitude && longitude) {
-        url += `latitude=${latitude}&longitude=${longitude}`;
+        url += `&latitude=${latitude}&longitude=${longitude}`;
     }
+
+    if (numperpage) {
+        url += `&numperpage=${numperpage}`;
+    }
+
+    if (page) {
+        url += `&page=${page}`;
+    }
+
     let response = await fetch(url);
     return await response.json();
 }
@@ -135,6 +146,18 @@ function updateTagList(tags) {
     displayMap(tags, latitude, longitude);
 }
 
+function changeCurrpage(increment) {
+    let currpage = Number(document.getElementById("currpage").value);
+    if (increment) {   // increment
+        currpage += 1;
+        document.querySelector("#pagecontrol #left").disabled = (currpage >= document.getElementById("numofpages"));
+    } else {            // decrement
+        currpage -= 1;
+        document.querySelector("#pagecontrol #left").disabled = (currpage < 1);
+    }
+    document.getElementById("currpage").value = currpage;
+}
+
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
     updateLocation();
@@ -150,6 +173,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("discoveryFilterForm").addEventListener("submit", (event) => {
         event.preventDefault();
+        onDiscoveryFormSubmit()
+            .then(response => {
+                document.getElementById("currpage").value = 0;
+                updateTagList(response);
+            })
+            .catch(err => alert(err));
+    });
+
+    document.querySelector("#pagecontrol #left").addEventListener("click", (event) => {
+        event.preventDefault();
+        changeCurrpage(false);
+        onDiscoveryFormSubmit()
+            .then(response => {
+                updateTagList(response);
+            })
+            .catch(err => alert(err));
+    });
+
+    document.querySelector("#pagecontrol #right").addEventListener("click", (event) => {
+        event.preventDefault();
+        changeCurrpage(true);
         onDiscoveryFormSubmit()
             .then(response => {
                 updateTagList(response);

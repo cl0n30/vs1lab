@@ -79,6 +79,14 @@ router.get('/api/geotags', (req, res) => {
         );
     }
 
+    req.query.numperpage ??= 5; // assign default value if not set in request
+    if(results.length > req.query.numperpage) { // to many
+        req.query.page ??= 0;   // assign default value if not set in request
+        var from = Number(req.query.numperpage) * Number(req.query.page)
+        var to = Number(req.query.numperpage) * (Number(req.query.page)+1)
+        results = results.slice(from, to);
+    }
+
     res.json(results);
 });
 

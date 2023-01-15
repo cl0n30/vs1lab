@@ -80,6 +80,12 @@
                             <li><%= gtag.name %> (<%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
                         <% }); %>
                     </ul>
+                    <div id="pagecontrol">
+                        <input type="button" id="left" value="&lt;">
+                        <input type="number" id="currpage" name="currpage" min="0" disabled value="">
+                        <input type="hidden" id="numofpages" name="numofpages" value="">
+                        <input type="button" id="right" value="&gt;">
+                    </div>
                 </div>
 
                 <div class="discovery__map">

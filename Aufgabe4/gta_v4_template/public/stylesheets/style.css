@@ -191,6 +191,17 @@ div.discovery__taglist li {
   margin: 3ex;
 }
 
+div.discovery__taglist #pagecontrol {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  background-color: var(--background-color);
+  border: solid;
+  border-color: var(--border-color);
+  padding: 2ex;
+  margin: 3ex;
+}
+
 div.discovery__map {
   display: flex;
   flex-direction:  column;
