@@ -89,7 +89,7 @@ router.get('/api/geotags', (req, res) => {
     let results = tagStore.getCurrent(parseInt(req.query.page),5);
     resJSON.push(results);
 
-    res.json(resJSON);
+    res.status(200).json(resJSON);
 });
 
 
