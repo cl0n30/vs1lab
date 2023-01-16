@@ -85,7 +85,7 @@ router.get('/api/geotags', (req, res) => {
     if (req.query.page) {
         page = req.query.page;
     }
-    let start = page * entriesPerPage - entriesPerPage;
+    let start = (page - 1) * entriesPerPage;
     let end = page * entriesPerPage;
     results = results.slice(start, end);
 
