@@ -38,9 +38,9 @@ class InMemoryGeoTagStore{
         exampleTags.forEach((elem) => {
             let tag = new GeoTag(elem[0], elem[1], elem[2], elem[3]);
             this.#geoTags.set(this.#id, tag);
-            this.#current[this.#id - 1] = tag;
             this.#id++;
         });
+        this.#current = [...this.#geoTags.values()];
     }
 
     /**
