@@ -144,6 +144,8 @@ class InMemoryGeoTagStore{
      * 
      * @param {number} page 
      * @param {number} pagelength 
+     * @returns entries in current for the page with the given length. 
+     *          Current holds the result of the last search oor all entries in this.#geotags
      */
     getCurrent(page, pagelength) {
         if (this.#current.length < (page - 1) * pagelength || page < 1) {
@@ -158,10 +160,19 @@ class InMemoryGeoTagStore{
         return tags;
     }
 
+    /**
+     * 
+     * @returns size of current
+     */
     getCurrentSize() {
         return this.#current.length;
     }
 
+    /**
+     * 
+     * @param {number} pagelength 
+     * @returns number of pages for the given pagelength
+     */
     getCurrentPages(pagelength) {
         if (this.#current.length % pagelength == 0) {
             return Math.floor((this.#current.length / pagelength));
