@@ -80,6 +80,12 @@
                             <li><%= gtag.name %> (<%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
                         <% }); %>
                     </ul>
+                    
+                    <div id="page_select" class="discovery__page">
+                        <button id="button_page_prev"> < </button>
+                        <span id="page_number"></span>
+                        <button id="button_page_next"> > </button>
+                    </div>
                 </div>
 
                 <div class="discovery__map">

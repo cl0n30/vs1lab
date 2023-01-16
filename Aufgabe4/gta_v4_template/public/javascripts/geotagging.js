@@ -27,6 +27,14 @@ class GeoTag {
     
 }
 
+var currentPage = 1;
+var entriesPerPage = 5;
+var tagAmount = 0;
+/**
+ * The URL of the last route that was called, with queries, without page
+ */
+var lastUrl = "";
+
 /**
  * A function to retrieve the current location and update the page.
  * It is called once the page has been fully loaded.
@@ -78,7 +86,10 @@ async function onTaggingFormSubmit() {
         body: JSON.stringify(tag)
     });
 
-    let url = `http://localhost:3000/api/geotags?latitude=${latitude}&longitude=${longitude}`;
+    let url = `http://localhost:3000/api/geotags?latitude=${latitude}&longitude=${longitude}&`;
+    lastUrl = url;
+
+    url += `page=${currentPage}`;
 
     response = await fetch(url);
 
@@ -99,21 +110,15 @@ async function onDiscoveryFormSubmit() {
     }
 
     if (latitude && longitude) {
-        url += `latitude=${latitude}&longitude=${longitude}`;
+        url += `latitude=${latitude}&longitude=${longitude}&`;
     }
+    lastUrl = url;
+
+    url += "page=1";
+    currentPage = 1;
+
     let response = await fetch(url);
     return await response.json();
-}
-
-/**
- * Adds a new geotag to the displayed list
- * @param {GeoTag} tag 
- */
-function addTagToList(tag) {
-    let tagList = document.getElementById("discoveryResults");
-    let li = document.createElement("li");
-    li.innerHTML = `${tag.name} (${tag.latitude},${tag.longitude}) ${tag.hashtag}`;
-    tagList.appendChild(li);
 }
 
 /**
@@ -135,6 +140,47 @@ function updateTagList(tags) {
     displayMap(tags, latitude, longitude);
 }
 
+function updatePagination(tagAmount) {
+    let select = document.getElementById("page_select");
+    let next = document.getElementById("button_page_next");
+    let prev = document.getElementById("button_page_prev");
+    let number = document.getElementById("page_number");
+
+    if (tagAmount <= entriesPerPage) {
+        select.style.display = "none";
+        return;
+    } else {
+        select.style.display = "flex";
+    }
+
+    let maxPage = Math.ceil(tagAmount/entriesPerPage);
+
+    if (currentPage == 1) {
+        prev.disabled = true;
+    } else {
+        prev.disabled = false;
+    }
+
+    if (currentPage == maxPage) {
+        next.disabled = true;
+    } else {
+        next.disabled = false;
+    }
+
+    number.innerHTML = `${currentPage}/${maxPage} (${tagAmount})`;
+}
+
+async function onButtonClick(next) {
+    if (next) {
+        currentPage++;
+    } else {
+        currentPage--;
+    }
+    let response = await fetch(lastUrl + `page=${currentPage}`);
+
+    return await response.json();
+}
+
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
     updateLocation();
@@ -143,6 +189,8 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         onTaggingFormSubmit()
             .then(response => {
+                let amount = response.pop().amount;
+                updatePagination(amount);
                 updateTagList(response);
             })
             .catch(err => alert(err));
@@ -152,6 +200,29 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         onDiscoveryFormSubmit()
             .then(response => {
+                let amount = response.pop().amount;
+                updatePagination(amount);
+                updateTagList(response);
+            })
+            .catch(err => alert(err));
+    });
+
+    document.getElementById("page_select").style.display = "none";
+    
+    document.getElementById("button_page_next").addEventListener("click", (event) => {
+        onButtonClick(true)
+            .then(response => {
+                let amount = response.pop().amount;
+                updatePagination(amount);
+                updateTagList(response);
+            })
+            .catch(err => alert(err));
+    });
+    document.getElementById("button_page_prev").addEventListener("click", (event) => {
+        onButtonClick(false)
+            .then(response => {
+                let amount = response.pop().amount;
+                updatePagination(amount);
                 updateTagList(response);
             })
             .catch(err => alert(err));
