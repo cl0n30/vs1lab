@@ -183,15 +183,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 page = 1;
                 size = parseInt(response[0].size);
                 maxPages = parseInt(response[0].pages);
+
+                document.getElementById("back_button").disabled = true;  
+                if (maxPages == 1 || size == 0) {
+                    document.getElementById("forward_button").disabled = true;
+                } else {
+                    document.getElementById("forward_button").disabled = false;
+                }
+                
                 updateTagList(response[1]);
             })
             .catch(err => alert(err));
-        document.getElementById("back_button").disabled = true;    
-        if (maxPages == 1 || size == 0) {
-            document.getElementById("forward_button").disabled = true;
-        } else {
-            document.getElementById("forward_button").disabled = false;
-        }
     });
 
     document.getElementById("back_button").addEventListener("click", (event) => {

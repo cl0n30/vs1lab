@@ -163,7 +163,10 @@ class InMemoryGeoTagStore{
     }
 
     getCurrentPages(pagelength) {
-        return (this.#current.length / pagelength + 1);
+        if (this.#current.length % pagelength == 0) {
+            return (this.#current.length / pagelength);
+        }
+        return (this.#current.length / pagelength) + 1;
     }
 
 }
