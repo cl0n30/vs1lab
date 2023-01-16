@@ -39,3 +39,6 @@ DELETE http://localhost:3000/api/geotags/12 HTTP/1.1
 ###
 
 GET http://localhost:3000/api/geotags/12 HTTP/1.1
+
+###
+GET http://localhost:3000/api/geotags?latitude=49.01513&longitude=8.38989&page=1 HTTP/1.1
