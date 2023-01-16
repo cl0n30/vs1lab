@@ -190,14 +190,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     document.getElementById("forward_button").disabled = false;
                 }
-                
+
                 updateTagList(response[1]);
             })
             .catch(err => alert(err));
     });
 
     document.getElementById("back_button").addEventListener("click", (event) => {
-        console.log("back");
         loadPreviousPage().then(response => {
             updateTagList(response[1]);
         })
@@ -213,7 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("forward_button").addEventListener("click", (event) => {
-        console.log("forward");
         loadNextPage().then(response => {
             updateTagList(response[1]);
         })
